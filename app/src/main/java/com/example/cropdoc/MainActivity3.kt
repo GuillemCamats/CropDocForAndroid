@@ -1,10 +1,14 @@
 package com.example.cropdoc
 
-import android.net.Uri
+
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
+
+
+
 
 class MainActivity3 : AppCompatActivity() {
 
@@ -13,7 +17,9 @@ class MainActivity3 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
         pantalla = findViewById<ImageView>(R.id.imageView2)
-        val myUri: String? = intent.getStringExtra("imageUri")
-        pantalla?.setImageURI(myUri?.toUri())
+        val myUri: String? = intent.getStringExtra("bitmap")
+        val imageBytes = Base64.decode(myUri, 0)
+        val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        pantalla?.setImageBitmap(image)
     }
 }
