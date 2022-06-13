@@ -20,6 +20,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity2::class.java)
             startActivity(intent)
         }
+        val buttonClick2 = findViewById<Button>(R.id.connectLg)
+        buttonClick2.setOnClickListener {
+            val intent = Intent(this, MainActivity3::class.java)
+            startActivity(intent)
+        }
     }
 
 

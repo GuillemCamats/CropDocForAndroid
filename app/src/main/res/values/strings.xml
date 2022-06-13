@@ -12,6 +12,11 @@
     <string name="select">Select</string>
     <string name="add_image">Add Image</string>
     <string name="predict_image">Predict Image</string>
+    <string name="connect_to_lg">Connect To LG</string>
+    <string name="shutdown">Shutdown</string>
+    <string name="relaunch">Relaunch</string>
+    <string name="connect">Connect</string>
+    <string name="reboot">Reboot</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 <!-- TODO: Remove or change this placeholder text -->

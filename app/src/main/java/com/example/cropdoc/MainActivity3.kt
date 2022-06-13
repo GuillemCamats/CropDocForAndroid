@@ -1,10 +1,8 @@
 package com.example.cropdoc
 
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
-import android.widget.ImageView
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -12,14 +10,18 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity3 : AppCompatActivity() {
 
-    var pantalla: ImageView?= null
+    lateinit var shutdown :Button
+    lateinit var reboot :Button
+    lateinit var relaunch :Button
+    lateinit var connect :Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
-        pantalla = findViewById<ImageView>(R.id.imageView2)
-        val myUri: String? = intent.getStringExtra("bitmap")
-        val imageBytes = Base64.decode(myUri, 0)
-        val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-        pantalla?.setImageBitmap(image)
+        shutdown = findViewById(R.id.shutdown)
+        reboot = findViewById(R.id.reboot)
+        relaunch = findViewById(R.id.relaunch)
+        connect = findViewById(R.id.connect)
+
+
     }
 }

@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,11 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cropdoc.ml.LiteModelDiseaseClassification1
-import com.example.cropdoc.ml.Modelpocho
-import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-
 
 
 class MainActivity2 : AppCompatActivity() {
@@ -64,10 +59,24 @@ class MainActivity2 : AppCompatActivity() {
             val outputs = model.process(tfImage)
             val probability = outputs.probabilityAsCategoryList.apply { sortByDescending { it.score } }
 
-            text?.text = probability.toString()
+            val res = stringSelector(probability.toString())
+
+            Log.d("salt",res)
+
+            text?.text = res
 
 
         }
+    }
+    fun stringSelector(s: String): String {
+
+        val typeplant = s.drop(15)
+
+        val parts = typeplant.split("(", ")", "\"", "=")
+
+        val tipo = parts[0]
+        val score = parts[6]
+        return "Type: $tipo | Predicion: $score"
     }
     @RequiresApi(Build.VERSION_CODES.P)
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
