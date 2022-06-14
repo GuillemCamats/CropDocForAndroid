@@ -65,7 +65,6 @@ class MainActivity2 : AppCompatActivity() {
 
             text?.text = res
 
-
         }
     }
     fun stringSelector(s: String): String {
@@ -76,8 +75,9 @@ class MainActivity2 : AppCompatActivity() {
 
         val tipo = parts[0]
         val score = parts[6]
-        return "Type: $tipo | Predicion: $score"
+        return "Type: $tipo | Accuracy: $score"
     }
+
     @RequiresApi(Build.VERSION_CODES.P)
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
