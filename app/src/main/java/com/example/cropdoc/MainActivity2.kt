@@ -8,22 +8,26 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.cropdoc.ml.LiteModelDiseaseClassification1
 import org.tensorflow.lite.support.image.TensorImage
 
 
 class MainActivity2 : AppCompatActivity() {
-    var pantalla: ImageView ?= null
+    private var pantalla: ImageView ?= null
     var confirm: Button ?=null
     var data: Uri ?= null
     var text: TextView ?= null
     private var bitmap: Bitmap ?= null
+    var prediction: String ?= null
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,7 @@ class MainActivity2 : AppCompatActivity() {
         pantalla = findViewById(R.id.imageView)
         val buttonClick = findViewById<Button>(R.id.buttonLoadPicture)
         confirm = findViewById(R.id.buttonConfirm)
+        val location = findViewById<Button>(R.id.add_location)
 
         buttonClick.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -58,14 +63,18 @@ class MainActivity2 : AppCompatActivity() {
 
             val outputs = model.process(tfImage)
             val probability = outputs.probabilityAsCategoryList.apply { sortByDescending { it.score } }
-
-            val res = stringSelector(probability.toString())
-
-            Log.d("salt",res)
-
-            text?.text = res
-
+            prediction = stringSelector(probability.toString())
+            text?.text = prediction
+            location.visibility = View.VISIBLE
         }
+
+        location.setOnClickListener{
+            val intent = Intent(this@MainActivity2, MainActivity4::class.java)
+            intent.putExtra("pred",prediction)
+            intent.putExtra("bitmap",bitmap.toString())
+            startActivity(intent)
+        }
+
     }
     fun stringSelector(s: String): String {
 
