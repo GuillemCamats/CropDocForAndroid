@@ -23,7 +23,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main4">MainActivity4</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="latitude">Set Latitude&amp;Longitude</string>
+    <string name="latitude">Set Latitude and Longitude</string>
     <string name="longitude">Longitude</string>
     <string name="save_location">Save Location</string>
 </resources>

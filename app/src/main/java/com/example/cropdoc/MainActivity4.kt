@@ -14,10 +14,15 @@ class MainActivity4 : AppCompatActivity() {
 
         val location = findViewById<EditText>(R.id.longitude)
         val button = findViewById<Button>(R.id.button2)
+        val prediction = intent.getStringExtra("pred")
+        val bitmap = intent.getStringExtra("bitmap")
 
         button.setOnClickListener{
             val text = location.text.toString()
-            Log.d("shape", text)
+            val locations = Locations(text,prediction,bitmap)
+            Locations.pointsList.add(locations)
+            Log.d("shape", Locations.pointsList.toString())
+            finish()
         }
     }
 }

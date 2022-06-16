@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="153dp"
+        android:layout_width="192dp"
         android:layout_height="41dp"
         android:text="@string/latitude"
         app:layout_constraintBottom_toBottomOf="parent"
