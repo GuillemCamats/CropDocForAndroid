@@ -14,6 +14,7 @@
         android:layout_height="47dp"
         android:layout_margin="20dp"
         android:ems="10"
+        android:textColor="@color/black"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +34,7 @@
         app:layout_constraintVertical_bias="0.265" />
 
     <TextView
+        android:textColor="@color/black"
         android:id="@+id/textView2"
         android:layout_width="192dp"
         android:layout_height="41dp"

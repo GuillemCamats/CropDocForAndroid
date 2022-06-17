@@ -1,6 +1,8 @@
 package com.example.cropdoc
 
-import android.content.Intent
+
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,4 +27,5 @@ class MainActivity4 : AppCompatActivity() {
             finish()
         }
     }
+
 }
