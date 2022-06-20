@@ -23,9 +23,12 @@ class MainActivity4 : AppCompatActivity() {
             val text = location.text.toString()
             val locations = Locations(text,prediction,bitmap)
             Locations.pointsList.add(locations)
-            Log.d("shape", Locations.pointsList.toString())
+            SharedApp.prefs.name = Locations.pointsList.toString()
+            Log.d("shape", SharedApp.prefs.name.toString())
             finish()
         }
+
     }
+
 
 }

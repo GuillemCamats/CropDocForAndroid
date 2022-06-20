@@ -9,7 +9,8 @@ public class Locations {
     public final String coordinates;
     public final String prediction;
     public final String bitmap;
-    public static List<Locations> pointsList = new ArrayList<Locations>();;
+    public static List<Locations> pointsList = new ArrayList<Locations>();
+
 
     public Locations (String coordinates, String prediction, String bitmap){
         this.coordinates = coordinates;
