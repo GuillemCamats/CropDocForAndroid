@@ -84,8 +84,8 @@ class MainActivity2 : AppCompatActivity() {
 
         val tipo = parts[0]
         val score = parts[6]
-        val app = SharedApp.prefs.name.toString()
-        return "Type: $tipo | Accuracy: $score |  $app )"
+
+        return "Type: $tipo | Accuracy: $score"
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
