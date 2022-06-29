@@ -14,6 +14,7 @@ class MainActivity3 : AppCompatActivity() {
     lateinit var reboot :Button
     lateinit var relaunch :Button
     lateinit var connect :Button
+    var lgConnection: LgConnection? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
@@ -22,6 +23,18 @@ class MainActivity3 : AppCompatActivity() {
         relaunch = findViewById(R.id.relaunch)
         connect = findViewById(R.id.connect)
 
-
+        connect.setOnClickListener{
+            lgConnection = LgConnection("lg","lqgalaxy","127.0.0.1",8)
+            lgConnection!!.connect()
+        }
+        relaunch.setOnClickListener{
+            lgConnection?.sendCommand("lg-relaunch")
+        }
+        reboot.setOnClickListener{
+            lgConnection?.sendCommand("lg-reboot")
+        }
+        shutdown.setOnClickListener{
+            lgConnection?.sendCommand("lg-poweroff")
+        }
     }
 }
