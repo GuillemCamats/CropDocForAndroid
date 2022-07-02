@@ -32,7 +32,9 @@ public class LgConnection {
             prop.put("StrictHostKeyChecking", "no");
             session.setConfig(prop);
             System.out.println("Establishing Connection...");
+            session.setTimeout(1000);
             session.connect();
+            System.out.println("Connected");
         } catch (JSchException e) {
             e.printStackTrace();
         }
