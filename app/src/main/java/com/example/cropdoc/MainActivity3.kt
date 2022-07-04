@@ -25,7 +25,7 @@ class MainActivity3 : AppCompatActivity() {
 
         connect.setOnClickListener{
             lgConnection = LgConnection("lg","lqgalaxy","192.168.1.84",22)
-            lgConnection!!.connect()
+            lgConnection!!.connectD()
         }
         relaunch.setOnClickListener{
             lgConnection?.sendCommand("lg-relaunch")

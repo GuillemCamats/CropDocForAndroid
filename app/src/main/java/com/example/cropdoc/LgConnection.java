@@ -1,6 +1,8 @@
 package com.example.cropdoc;
 
 
+import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.util.Log;
 
 import com.jcraft.jsch.*;
@@ -23,16 +25,19 @@ public class LgConnection {
         LgConnection.user=user;
     }
 
-    public void connect(){
+
+    public void connectD(){
         try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
             jsch = new JSch();
             session = jsch.getSession(user, host, port);
             session.setPassword(password);
-            Properties prop = new Properties();
-            prop.put("StrictHostKeyChecking", "no");
-            session.setConfig(prop);
+            java.util.Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");
+            session.setConfig(config);
             System.out.println("Establishing Connection...");
-            session.setTimeout(1000);
+            session.setTimeout(Integer.MAX_VALUE);
             session.connect();
             System.out.println("Connected");
         } catch (JSchException e) {
