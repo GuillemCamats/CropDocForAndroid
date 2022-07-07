@@ -40,21 +40,44 @@ public class LgConnection {
             session.setTimeout(Integer.MAX_VALUE);
             session.connect();
             System.out.println("Connected");
+            Channel channel = session.openChannel("exec");
+            ((ChannelExec) channel).setCommand("lg-poweroff");
+            channel.setInputStream(null);
+            ((ChannelExec) channel).setErrStream(System.err);
+            channel.connect();
         } catch (JSchException e) {
             e.printStackTrace();
         }
     }
-    public void sendCommand(String command) throws JSchException, IOException {
+    public void sendCommand(String command) throws JSchException {
         if(session.isConnected()){
             Channel channel = session.openChannel("exec");
             ((ChannelExec) channel).setCommand(command);
             channel.setInputStream(null);
             ((ChannelExec) channel).setErrStream(System.err);
-            InputStream in = channel.getInputStream();
             channel.connect();
         } else {
             System.out.println("Connect first");
         }
+    }
+    public void sendKml() throws JSchException, SftpException {
+        if(session.isConnected()){
+            Channel sftp = session.openChannel("sftp");
+
+            // 5 seconds timeout
+            sftp.connect(5);
+
+            ChannelSftp channelSftp = (ChannelSftp) sftp;
+
+            // transfer file from local to remote server
+            channelSftp.put("localFile", " /var/www/html");
+
+            // download file from remote server to local
+            // channelSftp.get(remoteFile, localFile);
+
+            channelSftp.exit();
+        }
+
     }
 
 }

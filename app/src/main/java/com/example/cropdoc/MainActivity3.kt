@@ -28,7 +28,7 @@ class MainActivity3 : AppCompatActivity() {
             lgConnection!!.connectD()
         }
         relaunch.setOnClickListener{
-            lgConnection?.sendCommand("lg-relaunch")
+            lgConnection?.sendKml()
         }
         reboot.setOnClickListener{
             lgConnection?.sendCommand("lg-reboot")
