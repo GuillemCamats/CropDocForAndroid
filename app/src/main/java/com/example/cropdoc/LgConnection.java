@@ -40,11 +40,6 @@ public class LgConnection {
             session.setTimeout(Integer.MAX_VALUE);
             session.connect();
             System.out.println("Connected");
-            Channel channel = session.openChannel("exec");
-            ((ChannelExec) channel).setCommand("lg-poweroff");
-            channel.setInputStream(null);
-            ((ChannelExec) channel).setErrStream(System.err);
-            channel.connect();
         } catch (JSchException e) {
             e.printStackTrace();
         }
@@ -63,14 +58,13 @@ public class LgConnection {
     public void sendKml() throws JSchException, SftpException {
         if(session.isConnected()){
             Channel sftp = session.openChannel("sftp");
-
-            // 5 seconds timeout
-            sftp.connect(5);
-
+            sftp.connect();
+            String localF = "Proyecto_sin_titulo.kml";
+            String remotedir = "/var/www/html";
             ChannelSftp channelSftp = (ChannelSftp) sftp;
 
             // transfer file from local to remote server
-            channelSftp.put("localFile", " /var/www/html");
+            channelSftp.put(localF, remotedir);
 
             // download file from remote server to local
             // channelSftp.get(remoteFile, localFile);
