@@ -24,7 +24,7 @@ class MainActivity3 : AppCompatActivity() {
         connect = findViewById(R.id.connect)
 
         connect.setOnClickListener{
-            lgConnection = LgConnection("lg","lqgalaxy","192.168.1.84",22)
+            lgConnection = LgConnection("lg","lqgalaxy","192.168.1.85",22)
             lgConnection!!.connectD()
         }
         relaunch.setOnClickListener{
