@@ -1,23 +1,14 @@
 package com.example.cropdoc;
 
-
-import android.os.AsyncTask;
+import android.os.Build;
 import android.os.StrictMode;
-import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.jcraft.jsch.*;
-
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Properties;
+import java.time.ZonedDateTime;
 
 public class LgConnection {
     static String user;
@@ -63,7 +54,8 @@ public class LgConnection {
             System.out.println("Connect first");
         }
     }
-    public void sendKml() throws JSchException, SftpException, FileNotFoundException {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendKml() throws JSchException, SftpException {
         if(session.isConnected()){
             //createKmlsRepo();
             String file = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -295,12 +287,17 @@ public class LgConnection {
                     "</Document>\n" +
                     "</kml>";
 
-            String remoteFile = "/var/www/html/kmls/kmlReader.kml";
+            String lgdirection = "http://192.168.1.85:81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString();
+
+            String remoteKml = "/var/www/html/kmls/kmlReader.kml";
+            String remoteTxt = "/var/www/html/kmls.txt";
             Channel channel = session.openChannel("sftp");
             channel.connect();
             ByteArrayInputStream in = new ByteArrayInputStream(file.getBytes(StandardCharsets.UTF_8));
+            ByteArrayInputStream in2 = new ByteArrayInputStream(lgdirection.getBytes(StandardCharsets.UTF_8));
             ChannelSftp channelSftp = (ChannelSftp) channel;
-            channelSftp.put(in, remoteFile);
+            channelSftp.put(in, remoteKml);
+            channelSftp.put(in2,remoteTxt);
         }
     }
     public void createKmlsRepo() throws JSchException {
