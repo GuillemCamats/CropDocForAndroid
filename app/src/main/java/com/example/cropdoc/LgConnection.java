@@ -7,6 +7,9 @@ import androidx.annotation.RequiresApi;
 
 import com.jcraft.jsch.*;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 
@@ -43,8 +46,9 @@ public class LgConnection {
             e.printStackTrace();
         }
     }
-    public void sendCommand(String command) throws JSchException {
+    public void sendCommand(String command) throws JSchException, IOException {
         if(session.isConnected()){
+
             Channel channel = session.openChannel("exec");
             ((ChannelExec) channel).setCommand(command);
             channel.setInputStream(null);
@@ -296,6 +300,7 @@ public class LgConnection {
             ByteArrayInputStream in = new ByteArrayInputStream(file.getBytes(StandardCharsets.UTF_8));
             ByteArrayInputStream in2 = new ByteArrayInputStream(lgdirection.getBytes(StandardCharsets.UTF_8));
             ChannelSftp channelSftp = (ChannelSftp) channel;
+            sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","100","1.2");
             channelSftp.put(in, remoteKml);
             channelSftp.put(in2,remoteTxt);
         }
@@ -310,32 +315,85 @@ public class LgConnection {
         }
     }
     
-    private void sendFylTo(String lat,String lon,String altitude,String heading,String tilt,String  pRange,String duration) throws JSchException, SftpException {
-        String kml = "<gx:FlyTo>\n" +
-                "  <gx:duration>4.0</gx:duration>\n" +
-                "  <gx:flyToMode>smooth</gx:flyToMode>\n" +
-                "  <LookAt>\n" +
-                "    <longitude>"+ lon +"</longitude>\n" +
-                "    <latitude>"+lat+"</latitude>\n" +
-                "    <altitude>"+altitude+"</altitude>\n" +
-                "    <heading>"+heading+"</heading>\n" +
-                "    <tilt>"+tilt+"</tilt>\n" +
-                "    <range>"+pRange+"</range>\n" +
-                "    <altitudeMode>relativeToGround</altitudeMode>\n" +
-                "<gx:duration>"+duration+"</gx:duration>" +
-                "  </LookAt>\n" +
-                "</gx:FlyTo>";
-        if(session.isConnected()){
+    public void sendFylTo(String lat,String lon,String altitude,String heading,String tilt,String  pRange,String duration) throws JSchException{
+        String kml = "<LookAt>" +
+                "<longitude>" + lat + "</longitude>" +
+                "<latitude>" + lon + "</latitude>" +
+                "<altitude>" + altitude + "</altitude>" +
+                "<heading>" + heading + "</heading>" +
+                "<tilt>" + tilt + "</tilt>" +
+                "<range>" + pRange + "</range>" +
+                "<gx:fovy>35</gx:fovy>" +
+                "<altitudeMode>relativeToGround</altitudeMode>" +
+                "<gx:duration>" + duration + "</gx:duration>" +
+                "</LookAt>";
+        if (session.isConnected()) {
+            String command= "echo 'flytoview=" + kml +"'| cat > /tmp/query.txt";
+            Channel channel = session.openChannel("exec");
+            ((ChannelExec) channel).setCommand(command);
+            channel.setInputStream(null);
+            ((ChannelExec) channel).setErrStream(System.err);
+            channel.connect();
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void generateAndSendOrbit(String lat, String lon, String altitude, String heading, String tilt, String  pRange) throws JSchException, SftpException {
+        String orbit = "";
+        orbit += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+        orbit += "<kml xmlns=\"http://www.opengis.net/kml/2.2\"";
+        orbit += "xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">";
+        orbit += "<gx:Tour>";
+        orbit += "<name>Orbit</name>";
+        orbit += "<gx:Playlist>";
+
+        int o;
+
+        for (o = 0;o <= 1400;o+=20){
+            orbit += "<gx:FlyTo>";
+            orbit += "<gx:duration>1.2</gx:duration>";
+            orbit +=  "<gx:flyToMode>smooth</gx:flyToMode>";
+            orbit += "<LookAt>";
+            orbit += "<longitude>"+lon+"</longitude>";
+            orbit += "<latitude>"+lat+"</latitude>";
+            orbit += "<altitude>"+altitude+"</altitude>";
+            orbit += "<heading>"+o+"</heading>";
+            orbit += "<tilt>"+tilt+"</tilt>";
+            orbit += "<gx:fovy>35</gx:fovy>";
+            orbit += "<range>"+pRange+"</range>";
+            orbit += "<gx:altitudeMode>absolute</gx:altitudeMode>";
+            orbit += "</LookAt>";
+            orbit += "</gx:FlyTo>";
+        }
+        orbit += "</gx:Playlist>";
+        orbit += "</gx:Tour>";
+        orbit += "</kml>";
+        System.out.println("fora bucle");
+        if (session.isConnected()) {
+            String lgdirection = "http://192.168.1.85:81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString();
+
+            String remoteKml = "/var/www/html/kmls/kmlReader.kml";
+            String remoteTxt = "/var/www/html/kmls.txt";
             Channel channel = session.openChannel("sftp");
             channel.connect();
-            ByteArrayInputStream in = new ByteArrayInputStream(kml.getBytes(StandardCharsets.UTF_8));
+            ByteArrayInputStream in = new ByteArrayInputStream(orbit.getBytes(StandardCharsets.UTF_8));
+            ByteArrayInputStream in2 = new ByteArrayInputStream(lgdirection.getBytes(StandardCharsets.UTF_8));
             ChannelSftp channelSftp = (ChannelSftp) channel;
-            String remoteKml = "/var/www/html/kmls/instantKmls.kml";
+            sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","100","1.2");
             channelSftp.put(in, remoteKml);
-
-            // falte actualitzar el kmls.txt
+            channelSftp.put(in2,remoteTxt);
+            startOrbit();
         }
-
+    }
+    private void startOrbit() throws JSchException {
+        if (session.isConnected()) {
+            String command= "echo 'flytoview=orbit' | cat > /tmp/query.txt";
+            Channel channel = session.openChannel("exec");
+            ((ChannelExec) channel).setCommand(command);
+            channel.setInputStream(null);
+            ((ChannelExec) channel).setErrStream(System.err);
+            channel.connect();
+        }
+    }
 }
 
 

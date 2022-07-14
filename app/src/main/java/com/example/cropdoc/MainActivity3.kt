@@ -28,13 +28,14 @@ class MainActivity3 : AppCompatActivity() {
             lgConnection!!.connectD()
         }
         relaunch.setOnClickListener{
-            lgConnection?.sendKml()
+            lgConnection?.generateAndSendOrbit("0.6017395820287597","41.61585346355983","0","0","5","1000")//prage es la altura
         }
         reboot.setOnClickListener{
             lgConnection?.sendCommand("lg-reboot")
         }
         shutdown.setOnClickListener{
-            lgConnection?.sendCommand("lg-poweroff")
+            lgConnection?.sendCommand("/home/lg/bin/lg-poweroff > /home/lg/log.txt")
+
         }
     }
 }
