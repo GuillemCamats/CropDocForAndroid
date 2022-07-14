@@ -309,6 +309,32 @@ public class LgConnection {
             channel.connect();
         }
     }
+    
+    private void sendFylTo(String lat,String lon,String altitude,String heading,String tilt,String  pRange,String duration) throws JSchException, SftpException {
+        String kml = "<gx:FlyTo>\n" +
+                "  <gx:duration>4.0</gx:duration>\n" +
+                "  <gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "  <LookAt>\n" +
+                "    <longitude>"+ lon +"</longitude>\n" +
+                "    <latitude>"+lat+"</latitude>\n" +
+                "    <altitude>"+altitude+"</altitude>\n" +
+                "    <heading>"+heading+"</heading>\n" +
+                "    <tilt>"+tilt+"</tilt>\n" +
+                "    <range>"+pRange+"</range>\n" +
+                "    <altitudeMode>relativeToGround</altitudeMode>\n" +
+                "<gx:duration>"+duration+"</gx:duration>" +
+                "  </LookAt>\n" +
+                "</gx:FlyTo>";
+        if(session.isConnected()){
+            Channel channel = session.openChannel("sftp");
+            channel.connect();
+            ByteArrayInputStream in = new ByteArrayInputStream(kml.getBytes(StandardCharsets.UTF_8));
+            ChannelSftp channelSftp = (ChannelSftp) channel;
+            String remoteKml = "/var/www/html/kmls/instantKmls.kml";
+            channelSftp.put(in, remoteKml);
+
+            // falte actualitzar el kmls.txt
+        }
 
 }
 
