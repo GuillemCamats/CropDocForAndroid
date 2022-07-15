@@ -386,7 +386,7 @@ public class LgConnection {
     }
     private void startOrbit() throws JSchException {
         if (session.isConnected()) {
-            String command= "echo 'flytoview=orbit' | cat > /tmp/query.txt";
+            String command= "echo 'playtour=Orbit' > /tmp/query.txt";
             Channel channel = session.openChannel("exec");
             ((ChannelExec) channel).setCommand(command);
             channel.setInputStream(null);
