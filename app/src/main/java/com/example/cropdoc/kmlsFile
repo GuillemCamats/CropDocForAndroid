@@ -177,7 +177,7 @@
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
 			<range>395.6314229275449</range>
-			<altitudeMode>absolute</altitudeMode>
+			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
 		<styleUrl>#__managed_style_0006867CED21158C243B</styleUrl>
 		<Polygon>
@@ -200,7 +200,7 @@
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
 			<range>395.6314229275449</range>
-			<altitudeMode>absolute</altitudeMode>
+			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
 		<styleUrl>#__managed_style_0D06AC1E4421158CD002</styleUrl>
 		<Point>
@@ -217,7 +217,7 @@
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
 			<range>395.6314229275449</range>
-			<altitudeMode>absolute</altitudeMode>
+			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
 		<styleUrl>#__managed_style_0E92984A7121158D50C1</styleUrl>
 		<Point>

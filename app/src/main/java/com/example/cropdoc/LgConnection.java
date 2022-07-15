@@ -235,13 +235,13 @@ public class LgConnection {
                     "\t\t<name>Terreny</name>\n" +
                     "\t\t<LookAt>\n" +
                     "\t\t\t<longitude>0.6014081453723596</longitude>\n" +
-                    "\t\t\t<latitude>41.616115410079</latitude>\n" +
+                    "\t\t\t<latitude>41.6161154100079</latitude>\n" +
                     "\t\t\t<altitude>166.4212527401993</altitude>\n" +
                     "\t\t\t<heading>0</heading>\n" +
                     "\t\t\t<tilt>0</tilt>\n" +
                     "\t\t\t<gx:fovy>35</gx:fovy>\n" +
                     "\t\t\t<range>395.6314229275449</range>\n" +
-                    "\t\t\t<altitudeMode>absolute</altitudeMode>\n" +
+                    "\t\t\t<altitudeMode>relativeToGround</altitudeMode>\n" +
                     "\t\t</LookAt>\n" +
                     "\t\t<styleUrl>#__managed_style_0006867CED21158C243B</styleUrl>\n" +
                     "\t\t<Polygon>\n" +
@@ -258,13 +258,13 @@ public class LgConnection {
                     "\t\t<name>Infected tree</name>\n" +
                     "\t\t<LookAt>\n" +
                     "\t\t\t<longitude>0.6014081453723596</longitude>\n" +
-                    "\t\t\t<latitude>41.616115410079</latitude>\n" +
+                    "\t\t\t<latitude>41.6161154100079</latitude>\n" +
                     "\t\t\t<altitude>166.4212527401993</altitude>\n" +
                     "\t\t\t<heading>0</heading>\n" +
                     "\t\t\t<tilt>0</tilt>\n" +
                     "\t\t\t<gx:fovy>35</gx:fovy>\n" +
                     "\t\t\t<range>395.6314229275449</range>\n" +
-                    "\t\t\t<altitudeMode>absolute</altitudeMode>\n" +
+                    "\t\t\t<altitudeMode>relativeToGround</altitudeMode>\n" +
                     "\t\t</LookAt>\n" +
                     "\t\t<styleUrl>#__managed_style_0D06AC1E4421158CD002</styleUrl>\n" +
                     "\t\t<Point>\n" +
@@ -275,13 +275,13 @@ public class LgConnection {
                     "\t\t<name>Infected tree</name>\n" +
                     "\t\t<LookAt>\n" +
                     "\t\t\t<longitude>0.6014081453723596</longitude>\n" +
-                    "\t\t\t<latitude>41.616115410079</latitude>\n" +
+                    "\t\t\t<latitude>41.6161154100079</latitude>\n" +
                     "\t\t\t<altitude>166.4212527401993</altitude>\n" +
                     "\t\t\t<heading>0</heading>\n" +
                     "\t\t\t<tilt>0</tilt>\n" +
                     "\t\t\t<gx:fovy>35</gx:fovy>\n" +
                     "\t\t\t<range>395.6314229275449</range>\n" +
-                    "\t\t\t<altitudeMode>absolute</altitudeMode>\n" +
+                    "\t\t\t<altitudeMode>relativeToGround</altitudeMode>\n" +
                     "\t\t</LookAt>\n" +
                     "\t\t<styleUrl>#__managed_style_0E92984A7121158D50C1</styleUrl>\n" +
                     "\t\t<Point>\n" +
@@ -291,8 +291,8 @@ public class LgConnection {
                     "</Document>\n" +
                     "</kml>";
 
+            createKmlsRepo();
             String lgdirection = "http://192.168.1.85:81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString();
-
             String remoteKml = "/var/www/html/kmls/kmlReader.kml";
             String remoteTxt = "/var/www/html/kmls.txt";
             Channel channel = session.openChannel("sftp");
@@ -300,7 +300,7 @@ public class LgConnection {
             ByteArrayInputStream in = new ByteArrayInputStream(file.getBytes(StandardCharsets.UTF_8));
             ByteArrayInputStream in2 = new ByteArrayInputStream(lgdirection.getBytes(StandardCharsets.UTF_8));
             ChannelSftp channelSftp = (ChannelSftp) channel;
-            sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","100","1.2");
+            sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","200","1.2");
             channelSftp.put(in, remoteKml);
             channelSftp.put(in2,remoteTxt);
         }
@@ -309,6 +309,17 @@ public class LgConnection {
         if(session.isConnected()){
             Channel channel = session.openChannel("exec");
             ((ChannelExec) channel).setCommand("mkdir /var/www/html/kmls");
+            ((ChannelExec) channel).setCommand("touch /var/www/html/kmls/kmlReader.kml");
+            ((ChannelExec) channel).setCommand("touch /var/www/html/kmls/orbit.kml");
+            channel.setInputStream(null);
+            ((ChannelExec) channel).setErrStream(System.err);
+            channel.connect();
+        }
+    }
+    public void deleteKmls() throws JSchException {
+        if(session.isConnected()){
+            Channel channel = session.openChannel("exec");
+            ((ChannelExec) channel).setCommand("rm -r /var/www/html/kmls");
             channel.setInputStream(null);
             ((ChannelExec) channel).setErrStream(System.err);
             channel.connect();
@@ -360,7 +371,7 @@ public class LgConnection {
             orbit += "<tilt>"+tilt+"</tilt>";
             orbit += "<gx:fovy>35</gx:fovy>";
             orbit += "<range>"+pRange+"</range>";
-            orbit += "<gx:altitudeMode>absolute</gx:altitudeMode>";
+            orbit += "<gx:altitudeMode>relativeToGround</gx:altitudeMode>";
             orbit += "</LookAt>";
             orbit += "</gx:FlyTo>";
         }
@@ -369,16 +380,16 @@ public class LgConnection {
         orbit += "</kml>";
         System.out.println("fora bucle");
         if (session.isConnected()) {
-            String lgdirection = "http://192.168.1.85:81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString();
+            String lgdirection = "http://192.168.1.85:81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString()+"\n"+"http://192.168.1.85:81/kmls/orbit.kml"+"?id="+ZonedDateTime.now().toString();
 
-            String remoteKml = "/var/www/html/kmls/kmlReader.kml";
+            String remoteKml = "/var/www/html/kmls/orbit.kml";
             String remoteTxt = "/var/www/html/kmls.txt";
             Channel channel = session.openChannel("sftp");
             channel.connect();
-            ByteArrayInputStream in = new ByteArrayInputStream(orbit.getBytes(StandardCharsets.UTF_8));
+            ByteArrayInputStream in = new ByteArrayInputStream(string().getBytes(StandardCharsets.UTF_8));
             ByteArrayInputStream in2 = new ByteArrayInputStream(lgdirection.getBytes(StandardCharsets.UTF_8));
             ChannelSftp channelSftp = (ChannelSftp) channel;
-            sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","100","1.2");
+            //sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","1000","1.2");
             channelSftp.put(in, remoteKml);
             channelSftp.put(in2,remoteTxt);
             startOrbit();
@@ -393,6 +404,522 @@ public class LgConnection {
             ((ChannelExec) channel).setErrStream(System.err);
             channel.connect();
         }
+    }
+    private String string(){
+        String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<kml xmlns=\"http://www.opengis.net/kml/2.2\"\n" +
+                "xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
+                "<gx:Tour>\n" +
+                "\t<name>Orbit</name>\n" +
+                "\t<gx:Playlist>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>0</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>10</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>20</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>30</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>40</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>50</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>60</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>70</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>80</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>90</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>100</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>110</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>120</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>130</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>140</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>150</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>160</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>170</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>180</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>190</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>200</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>210</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>220</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>230</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>240</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>250</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>260</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>270</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>280</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>290</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>300</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>310</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>320</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>330</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>340</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t\t<gx:FlyTo>\n" +
+                "\t\t\t<gx:duration>1.2</gx:duration>\n" +
+                "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n" +
+                "\t\t\t<LookAt>\n" +
+                "\t\t\t\t<longitude>0.6017395820287597</longitude>\n" +
+                "\t\t\t\t<latitude>41.61585346355983</latitude>\n" +
+                "\t\t\t\t<altitude>1000</altitude>\n" +
+                "\t\t\t\t<heading>350</heading>\n" +
+                "\t\t\t\t<tilt>5</tilt>\n" +
+                "\t\t\t\t<gx:fovy>35</gx:fovy>\n" +
+                "\t\t\t\t<range>1000</range>\n" +
+                "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n" +
+                "\t\t\t</LookAt>\n" +
+                "\t\t</gx:FlyTo>\n" +
+                "\t</gx:Playlist>\n" +
+                "</gx:Tour>\n" +
+                "</kml>";
+        return s;
     }
 }
 
