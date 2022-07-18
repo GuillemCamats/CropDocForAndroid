@@ -1,11 +1,11 @@
 package com.example.cropdoc
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-
-
+import androidx.fragment.app.Fragment
 
 
 class MainActivity3 : AppCompatActivity() {
@@ -23,9 +23,10 @@ class MainActivity3 : AppCompatActivity() {
         relaunch = findViewById(R.id.relaunch)
         connect = findViewById(R.id.connect)
 
+
         connect.setOnClickListener{
-            lgConnection = LgConnection("lg","lqgalaxy","192.168.1.85",22)
-            lgConnection!!.connectD()
+            val intent = Intent(this, SetIpToConn::class.java)
+            startActivity(intent)
         }
         relaunch.setOnClickListener{
             lgConnection?.generateAndSendOrbit("0.6017395820287597","41.61585346355983","0","0","5","200")//prage es la altura

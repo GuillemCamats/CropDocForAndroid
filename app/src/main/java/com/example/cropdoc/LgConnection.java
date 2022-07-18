@@ -350,34 +350,34 @@ public class LgConnection {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void generateAndSendOrbit(String lat, String lon, String altitude, String heading, String tilt, String  pRange) throws JSchException, SftpException {
         String orbit = "";
-        orbit += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-        orbit += "<kml xmlns=\"http://www.opengis.net/kml/2.2\"";
-        orbit += "xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">";
-        orbit += "<gx:Tour>";
-        orbit += "<name>Orbit</name>";
-        orbit += "<gx:Playlist>";
+        orbit += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+        orbit += "<kml xmlns=\"http://www.opengis.net/kml/2.2\"\n";
+        orbit += "xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n";
+        orbit += "<gx:Tour>\n";
+        orbit += "<name>Orbit</name>\n";
+        orbit += "<gx:Playlist>\n";
 
         int o;
 
         for (o = 0;o <= 1400;o+=20){
-            orbit += "<gx:FlyTo>";
-            orbit += "<gx:duration>1.2</gx:duration>";
-            orbit +=  "<gx:flyToMode>smooth</gx:flyToMode>";
-            orbit += "<LookAt>";
-            orbit += "<longitude>"+lon+"</longitude>";
-            orbit += "<latitude>"+lat+"</latitude>";
-            orbit += "<altitude>"+altitude+"</altitude>";
-            orbit += "<heading>"+o+"</heading>";
-            orbit += "<tilt>"+tilt+"</tilt>";
-            orbit += "<gx:fovy>35</gx:fovy>";
-            orbit += "<range>"+pRange+"</range>";
-            orbit += "<gx:altitudeMode>relativeToGround</gx:altitudeMode>";
-            orbit += "</LookAt>";
-            orbit += "</gx:FlyTo>";
+            orbit += "<gx:FlyTo>\n";
+            orbit += "<gx:duration>1.2</gx:duration>\n";
+            orbit +=  "<gx:flyToMode>smooth</gx:flyToMode>\n";
+            orbit += "<LookAt>\n";
+            orbit += "<longitude>"+lon+"</longitude>\n";
+            orbit += "<latitude>"+lat+"</latitude>\n";
+            orbit += "<altitude>"+altitude+"</altitude>\n";
+            orbit += "<heading>"+o+"</heading>\n";
+            orbit += "<tilt>"+tilt+"</tilt>\n";
+            orbit += "<gx:fovy>35</gx:fovy>\n";
+            orbit += "<range>"+pRange+"</range>\n";
+            orbit += "<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n";
+            orbit += "</LookAt>\n";
+            orbit += "</gx:FlyTo>\n";
         }
-        orbit += "</gx:Playlist>";
-        orbit += "</gx:Tour>";
-        orbit += "</kml>";
+        orbit += "</gx:Playlist>\n";
+        orbit += "</gx:Tour>\n";
+        orbit += "</kml>\n";
         System.out.println("fora bucle");
         if (session.isConnected()) {
             String lgdirection = "http://192.168.1.85:81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString()+"\n"+"http://192.168.1.85:81/kmls/orbit.kml"+"?id="+ZonedDateTime.now().toString();

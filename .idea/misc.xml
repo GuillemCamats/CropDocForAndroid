@@ -9,14 +9,17 @@
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/activity_main.xml" value="0.5132788559754852" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/activity_main2.xml" value="0.5132788559754852" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/activity_main2_1.xml" value="0.5234375" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/activity_main3.xml" value="0.5234375" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/activity_main3.xml" value="0.2908366533864542" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/activity_main4.xml" value="0.5132788559754852" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/activity_maps.xml" value="0.5234375" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/activity_set_ip_to_conn.xml" value="0.50625" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/content_main.xml" value="0.5234375" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/fragment_blank.xml" value="0.5234375" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/fragment_first.xml" value="0.5234375" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/fragment_ip.xml" value="0.50625" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/fragment_location.xml" value="0.5132788559754852" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/fragment_second.xml" value="0.5234375" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/layout/fragment_set_ip.xml" value="0.50625" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/CropDoc/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.4185" />
       </map>
     </option>
