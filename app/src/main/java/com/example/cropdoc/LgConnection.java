@@ -354,28 +354,28 @@ public class LgConnection {
         orbit += "<kml xmlns=\"http://www.opengis.net/kml/2.2\"\n";
         orbit += "xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n";
         orbit += "<gx:Tour>\n";
-        orbit += "<name>Orbit</name>\n";
-        orbit += "<gx:Playlist>\n";
+        orbit += "\t<name>Orbit</name>\n";
+        orbit += "\t<gx:Playlist>\n";
 
         int o;
 
         for (o = 0;o <= 1400;o+=20){
-            orbit += "<gx:FlyTo>\n";
-            orbit += "<gx:duration>1.2</gx:duration>\n";
-            orbit +=  "<gx:flyToMode>smooth</gx:flyToMode>\n";
-            orbit += "<LookAt>\n";
-            orbit += "<longitude>"+lon+"</longitude>\n";
-            orbit += "<latitude>"+lat+"</latitude>\n";
-            orbit += "<altitude>"+altitude+"</altitude>\n";
-            orbit += "<heading>"+o+"</heading>\n";
-            orbit += "<tilt>"+tilt+"</tilt>\n";
-            orbit += "<gx:fovy>35</gx:fovy>\n";
-            orbit += "<range>"+pRange+"</range>\n";
-            orbit += "<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n";
-            orbit += "</LookAt>\n";
-            orbit += "</gx:FlyTo>\n";
+            orbit += "\t\t<gx:FlyTo>\n";
+            orbit += "\t\t\t<gx:duration>1.2</gx:duration>\n";
+            orbit += "\t\t\t<gx:flyToMode>smooth</gx:flyToMode>\n";
+            orbit += "\t\t\t<LookAt>\n";
+            orbit += "\t\t\t\t<longitude>"+lon+"</longitude>\n";
+            orbit += "\t\t\t\t<latitude>"+lat+"</latitude>\n";
+            orbit += "\t\t\t\t<altitude>"+altitude+"</altitude>\n";
+            orbit += "\t\t\t\t<heading>"+o+"</heading>\n";
+            orbit += "\t\t\t\t<tilt>"+tilt+"</tilt>\n";
+            orbit += "\t\t\t\t<gx:fovy>35</gx:fovy>\n";
+            orbit += "\t\t\t\t<range>"+pRange+"</range>\n";
+            orbit += "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n";
+            orbit += "\t\t\t</LookAt>\n";
+            orbit += "\t\t</gx:FlyTo>\n";
         }
-        orbit += "</gx:Playlist>\n";
+        orbit += "\t</gx:Playlist>\n";
         orbit += "</gx:Tour>\n";
         orbit += "</kml>\n";
         System.out.println("fora bucle");
@@ -386,7 +386,7 @@ public class LgConnection {
             String remoteTxt = "/var/www/html/kmls.txt";
             Channel channel = session.openChannel("sftp");
             channel.connect();
-            ByteArrayInputStream in = new ByteArrayInputStream(string().getBytes(StandardCharsets.UTF_8));
+            ByteArrayInputStream in = new ByteArrayInputStream(orbit.getBytes(StandardCharsets.UTF_8));
             ByteArrayInputStream in2 = new ByteArrayInputStream(lgdirection.getBytes(StandardCharsets.UTF_8));
             ChannelSftp channelSftp = (ChannelSftp) channel;
             //sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","1000","1.2");
