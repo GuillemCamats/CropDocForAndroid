@@ -27,11 +27,11 @@ class MainActivity3 : AppCompatActivity() {
 
 
         connect.setOnClickListener{
-            val intent = Intent(this, SetIpToConn::class.java)
-            startActivity(intent)
+            lgConnection = LgConnection("lg","lqgalaxy","192.168.1.85",22)
+            lgConnection!!.connectD()
         }
         relaunch.setOnClickListener{
-            lgConnection?.generateAndSendOrbit("0.6017395820287597","41.61585346355983","0","0","5","200")//prage es la altura
+            lgConnection?.generateAndSendOrbit("41.61585346355983","0.6017395820287597","0","0","5","1000")//prage es la altura
         }
         reboot.setOnClickListener{
             lgConnection?.sendKml()
