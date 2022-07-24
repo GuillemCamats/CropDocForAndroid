@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.cropdoc">
+    package="com.example.cropdoc" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
@@ -19,10 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CropDoc"
-        tools:targetApi="31">
-        <activity
-            android:name=".SetIpToConn"
-            android:exported="false" />
+        tools:targetApi="31" >
+
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -36,8 +34,15 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
+            android:value="${GOOGLE_MAPS_API_KEY}" />
 
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".SetIpToConn"
+            android:exported="false" />
         <activity
             android:name=".MainActivity4"
             android:exported="false"
@@ -54,7 +59,7 @@
             android:theme="@style/Theme.CropDoc.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

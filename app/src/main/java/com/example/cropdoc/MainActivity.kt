@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         val buttonClick = findViewById<Button>(R.id.fotoCrop)
         buttonClick.setOnClickListener {
-            val intent = Intent(this, MainActivity2::class.java)
+            val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
         val buttonClick2 = findViewById<Button>(R.id.connectLg)
