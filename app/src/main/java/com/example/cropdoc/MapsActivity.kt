@@ -1,41 +1,47 @@
 package com.example.cropdoc
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
-import com.google.android.gms.maps.CameraUpdateFactory
+import android.util.Log
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.example.cropdoc.databinding.ActivityMapsBinding
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     private lateinit var mMap: GoogleMap
-private lateinit var binding: ActivityMapsBinding
-
+    private var mapView: MapView ?= null
+    private var marker: Marker ?= null
+    private var addMarker: Button ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+        mapView = findViewById(R.id.map)
+        mapView?.onCreate(savedInstanceState)
+        mapView?.onResume()
+        mapView?.getMapAsync(this)
+        addMarker = findViewById(R.id.addMarker)
+
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+        mMap.setOnMapClickListener(this)
     }
+
+    override fun onMapClick(p0: LatLng) {
+        Log.d("pos",p0.toString())
+        val prediction = intent.getStringExtra("pred")
+        marker = mMap.addMarker(MarkerOptions().position(p0).title("MarcadorExemple").snippet(prediction))
+        marker?.isVisible
+        marker?.showInfoWindow()
+    }
+
+
 }
