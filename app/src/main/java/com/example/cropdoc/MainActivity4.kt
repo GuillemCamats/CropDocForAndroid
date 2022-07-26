@@ -11,7 +11,7 @@ import android.widget.EditText
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 
-class MainActivity4 : AppCompatActivity() {
+class MainActivity4 : AppCompatActivity() {//no s'utilitze
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main4)
@@ -26,7 +26,7 @@ class MainActivity4 : AppCompatActivity() {
             val lon = lonitude.text.toString()
             val lat = latitude.text.toString()
             val latlong = LatLng(lat.toDouble(),lon.toDouble())
-            val locations = Locations(latlong,prediction,bitmap)
+            val locations = Locations(latlong,prediction)
             Locations.pointsList.add(locations)
             val json = Gson().toJson(Locations.pointsList)
             SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app

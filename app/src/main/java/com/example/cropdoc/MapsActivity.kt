@@ -10,6 +10,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
@@ -26,22 +27,35 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         mapView?.onResume()
         mapView?.getMapAsync(this)
         addMarker = findViewById(R.id.addMarker)
-
+        addMarker?.setOnClickListener{
+            if(marker!=null){
+                val prediction = intent.getStringExtra("pred")
+                val locations = Locations(marker!!.position,prediction)
+                Locations.pointsList.add(locations)
+                val json = Gson().toJson(Locations.pointsList)
+                SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
+                Log.d("shape", SharedApp.prefs.name.toString())
+                finish()
+            }
+        }
     }
-
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
         mMap.setOnMapClickListener(this)
     }
-
     override fun onMapClick(p0: LatLng) {
         Log.d("pos",p0.toString())
-        val prediction = intent.getStringExtra("pred")
-        marker = mMap.addMarker(MarkerOptions().position(p0).title("MarcadorExemple").snippet(prediction))
+        val prediction = intent.getStringExtra("pred")?.split("|")
+        eraseLastchekedPos()
+        marker = mMap.addMarker(MarkerOptions().position(p0).title(prediction?.get(0)).snippet(
+            prediction.toString()
+        ))
         marker?.isVisible
         marker?.showInfoWindow()
     }
-
-
+    private fun eraseLastchekedPos(){
+        marker?.remove()
+        marker = null
+    }
 }

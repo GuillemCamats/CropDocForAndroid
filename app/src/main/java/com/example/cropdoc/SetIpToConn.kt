@@ -18,7 +18,6 @@ class SetIpToConn : AppCompatActivity() {
         buttonIp.setOnClickListener{
             if(!inputIp.text.toString().equals(null)){
                 val ip = inputIp.text.toString()
-                main3?.connectip(ip)
                 Log.d("conn",ip)
                 finish()
             }

@@ -40,9 +40,4 @@ class MainActivity3 : AppCompatActivity() {
             lgConnection?.sendCommand("/home/lg/bin/lg-poweroff > /home/lg/log.txt")
         }
     }
-    fun connectip(ip: String){
-        Log.d("s",ip)
-        lgConnection = LgConnection("lg","lqgalaxy",ip,22)
-        lgConnection!!.connectD()
-    }
 }

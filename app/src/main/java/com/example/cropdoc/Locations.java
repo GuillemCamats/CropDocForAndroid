@@ -11,14 +11,12 @@ import java.util.List;
 public class Locations implements Serializable {
     public final LatLng coordinates;
     public final String prediction;
-    public final String bitmap;
     public static List<Locations> pointsList = new ArrayList<Locations>();
 
 
-    public Locations (LatLng coordinates, String prediction, String bitmap){
+    public Locations (LatLng coordinates, String prediction){
         this.coordinates = coordinates;
         this.prediction = prediction;
-        this.bitmap=bitmap;
     }
 
     public LatLng getCoordinates() {
@@ -29,7 +27,4 @@ public class Locations implements Serializable {
         return prediction;
     }
 
-    public String getBitmap() {
-        return bitmap;
-    }
 }

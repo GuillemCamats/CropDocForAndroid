@@ -69,7 +69,7 @@ class MainActivity2 : AppCompatActivity() {
         }
 
         location.setOnClickListener{
-            val intent = Intent(this@MainActivity2, MainActivity4::class.java)
+            val intent = Intent(this@MainActivity2, MapsActivity::class.java)
             intent.putExtra("pred",prediction)
             intent.putExtra("bitmap",bitmap.toString())
             startActivity(intent)
