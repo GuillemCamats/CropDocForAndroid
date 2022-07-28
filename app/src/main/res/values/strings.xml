@@ -36,4 +36,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="add_marker">Add Marker</string>
+    <string name="title_activity_maps_terrain">MapsActivityTerrain</string>
+    <string name="reset_markers">Reset Markers</string>
+    <string name="save_terrain">Save Terrain</string>
 </resources>
