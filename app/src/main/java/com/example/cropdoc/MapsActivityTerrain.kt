@@ -4,16 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.example.cropdoc.databinding.ActivityMapsTerrainBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.Marker
 import com.google.gson.Gson
 
 class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener{
-
 
     private lateinit var mMap: GoogleMap
     private var mapView: MapView?= null
