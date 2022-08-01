@@ -30,7 +30,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         addMarker?.setOnClickListener{
             if(marker!=null){
                 val prediction = intent.getStringExtra("pred")
-                val locations = Locations(marker!!.position,prediction)
+                val foto = intent.getStringExtra("bitmap")
+                val locations = Locations(marker!!.position,prediction,foto)
                 Locations.pointsList.add(locations)
                 val json = Gson().toJson(Locations.pointsList)
                 SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app

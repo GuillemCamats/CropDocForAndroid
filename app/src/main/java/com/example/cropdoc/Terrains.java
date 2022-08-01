@@ -13,7 +13,7 @@ import java.util.ListIterator;
 
 public class Terrains {
     public List<Marker> terrain;
-    public List<Marker> trees;
+    public List<Locations> trees;
     public String name;
 
     public static List<Terrains> terrainsList = new List<Terrains>() {
@@ -138,7 +138,7 @@ public class Terrains {
             return null;
         }
     };
-    public Terrains(String name, List<Marker> terrain, List<Marker> trees){
+    public Terrains(String name, List<Marker> terrain, List<Locations> trees){
         this.terrain=terrain;
         this.trees=trees;
         this.name=name;

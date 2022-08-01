@@ -32,10 +32,9 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
         }
         saveMarkers?.setOnClickListener{
             if(markers.isNotEmpty()){
-                val prediction = intent.getStringExtra("pred")
-                val locations = Locations(marker!!.position,prediction)
-                Locations.pointsList.add(locations)
-                val json = Gson().toJson(Locations.pointsList)
+                val terrains = Terrains("test",markers,null)
+                Terrains.terrainsList.add(terrains)
+                val json = Gson().toJson(Terrains.terrainsList)
                 SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
                 Log.d("shape", SharedApp.prefs.name.toString())
                 finish()
