@@ -35,7 +35,7 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
                 val terrains = Terrains("test",markers,null)
                 Terrains.terrainsList.add(terrains)
                 val json = Gson().toJson(Terrains.terrainsList)
-                SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
+                //SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
                 Log.d("shape", SharedApp.prefs.name.toString())
                 finish()
             }
