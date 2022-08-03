@@ -26,7 +26,10 @@ class SelectTerrainActivity : AppCompatActivity() {
             android.R.layout.simple_list_item_1, namesTerrains)
         list.adapter = arrayAdapter
 
-        
+        list.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            // This is your listview's selected item
+            item = parent.getItemAtPosition(position) as Terrains
+        }
         createTerrain.setOnClickListener{
             val intent = Intent(this,MapsActivityTerrain::class.java)
             startActivity(intent)
