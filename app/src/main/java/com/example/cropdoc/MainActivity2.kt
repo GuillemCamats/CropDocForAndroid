@@ -7,7 +7,6 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -15,8 +14,6 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.example.cropdoc.ml.LiteModelDiseaseClassification1
 import org.tensorflow.lite.support.image.TensorImage
 
@@ -69,7 +66,7 @@ class MainActivity2 : AppCompatActivity() {
         }
 
         location.setOnClickListener{
-            val intent = Intent(this@MainActivity2, MapsActivity::class.java)
+            val intent = Intent(this@MainActivity2, SelectTerrainActivity::class.java)
             intent.putExtra("pred",prediction)
             intent.putExtra("bitmap",bitmap.toString())
             startActivity(intent)

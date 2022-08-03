@@ -17,11 +17,11 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
     private var marker: Marker?= null
     private var resetMarker: Button?= null
     private var saveMarkers: Button?= null
-    lateinit var markers: MutableList<Marker>
+    private var markers: MutableList<Marker> ?= mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps_terrain)
-        mapView = findViewById(R.id.map)
+        mapView = findViewById(R.id.mapTerrain)
         mapView?.onCreate(savedInstanceState)
         mapView?.onResume()
         mapView?.getMapAsync(this)
@@ -31,12 +31,12 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
             eraseAll()
         }
         saveMarkers?.setOnClickListener{
-            if(markers.isNotEmpty()){
+            Log.d("markers",markers.toString())
+            if(markers!=null){
                 val terrains = Terrains("test",markers,null)
                 Terrains.terrainsList.add(terrains)
-                val json = Gson().toJson(Terrains.terrainsList)
+                //val json = Gson().toJson(Terrains.terrainsList)
                 //SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
-                Log.d("shape", SharedApp.prefs.name.toString())
                 finish()
             }
         }
@@ -47,14 +47,16 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
         mMap.setOnMapClickListener(this)
     }
     override fun onMapClick(p0: LatLng) {
-        val prediction = intent.getStringExtra("pred")?.split("|")
-        mMap.addMarker(MarkerOptions().position(p0).title(prediction?.get(0)).snippet(
-            prediction.toString()
-        ))?.let { markers.add(it) }
-        marker?.isVisible
-        marker?.showInfoWindow()
+        marker = mMap.addMarker(MarkerOptions().position(p0))
+        marker?.let { markers?.add(it) ?: marker }
+        Log.d("marker",marker.toString())
+        Log.d("markers",markers.toString())
     }
+
     private fun eraseAll(){
-        markers.clear()
+        mMap.clear()
+        marker?.remove()
+        marker= null
+        markers?.clear()
     }
 }

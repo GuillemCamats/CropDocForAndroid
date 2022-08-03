@@ -10,12 +10,11 @@
         android:id="@+id/mapTerrain"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/resetMarkers"
-        android:layout_width="200dp"
+        android:layout_width="184dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="@string/reset_markers"
@@ -23,7 +22,7 @@
 
     <Button
         android:id="@+id/saveterrain"
-        android:layout_width="200dp"
+        android:layout_width="189dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="@string/save_terrain" />

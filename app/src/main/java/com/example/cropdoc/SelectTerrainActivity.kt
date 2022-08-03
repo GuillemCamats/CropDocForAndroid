@@ -1,18 +1,19 @@
 package com.example.cropdoc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
-import java.io.BufferedReader
+
 
 class SelectTerrainActivity : AppCompatActivity() {
     lateinit var list :ListView
     lateinit var createTerrain: Button
     lateinit var selectTerrain: Button
-
+    var item: Terrains ?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_terrain)
@@ -25,9 +26,17 @@ class SelectTerrainActivity : AppCompatActivity() {
             android.R.layout.simple_list_item_1, namesTerrains)
         list.adapter = arrayAdapter
 
-        list.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            // This is your listview's selected item
-            val item = parent.getItemAtPosition(position) as Terrains
+        
+        createTerrain.setOnClickListener{
+            val intent = Intent(this,MapsActivityTerrain::class.java)
+            startActivity(intent)
+        }
+        selectTerrain.setOnClickListener {
+            if(item!=null){
+                val intent = Intent(this,MapsActivity::class.java)
+                intent.putExtra("name", item!!.name)
+                startActivity(intent)
+            }
         }
     }// agafar el item i passarlo a la seguent activitat sigui, crear un nou terreno, o que hagi seleccional el terreno, i guardarho, i desde el nom s'hafegeix el marcador al terreny corresponent.
 
