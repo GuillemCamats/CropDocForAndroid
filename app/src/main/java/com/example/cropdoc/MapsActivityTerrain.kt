@@ -1,5 +1,6 @@
 package com.example.cropdoc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,9 +36,8 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
             if(markers!=null){
                 val terrains = Terrains("test",markers,null)
                 Terrains.terrainsList.add(terrains)
-                //val json = Gson().toJson(Terrains.terrainsList)
-                //SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
-                finish()
+                val intent = Intent(this,SelectTerrainActivity::class.java)
+                startActivity(intent)
             }
         }
     }

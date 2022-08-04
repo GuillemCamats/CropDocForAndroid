@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (!SharedApp.prefs.name.toString().equals(null)){
-            parseToObj()
+           // parseToObj()
         }
 
         val buttonClick = findViewById<Button>(R.id.fotoCrop)
@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun parseToObj(){
         val objects = SharedApp.prefs.name.toString()
-        val list: List<Locations> = Gson().fromJson(objects, Array<Locations>::class.java).toList()
+        val list: List<Terrains> = Gson().fromJson(objects, Array<Terrains>::class.java).toList()
         for(elem in list){
-            Locations.pointsList.add(elem)
+            Terrains.terrainsList.add(elem)
         }
         Log.d("list",Locations.pointsList.toString())
     }

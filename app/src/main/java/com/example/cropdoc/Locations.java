@@ -12,7 +12,7 @@ public class Locations implements Serializable {
     public final LatLng coordinates;
     public final String prediction;
     public final String foto;
-    public static List<Locations> pointsList = new ArrayList<Locations>();
+    public static List<Locations> pointsList = new ArrayList<>();
 
 
     public Locations (LatLng coordinates, String prediction, String foto){

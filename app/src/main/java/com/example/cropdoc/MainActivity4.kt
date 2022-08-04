@@ -29,8 +29,8 @@ class MainActivity4 : AppCompatActivity() {//no s'utilitze
             //val locations = Locations(latlong,prediction)
 
             //Locations.pointsList.add(locations)
-            val json = Gson().toJson(Locations.pointsList)
-            SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
+            //val json = Gson().toJson(Locations.pointsList)
+            //SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
             Log.d("shape", SharedApp.prefs.name.toString())
             finish()
         }
