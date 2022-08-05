@@ -47,13 +47,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
                         loc = terrain.trees as ArrayList<Locations>
                         loc.add(locations)
                     }
-
                     Terrains.terrainsList.set(index.toInt(),Terrains(tName,tTerrain,loc))
                 }
                 Log.d("shape",Terrains.terrainsList.toString())
-                val json = Gson().toJson(Terrains.terrainsList)
+                val gson = Gson()
+                val json = gson.toJson(Terrains.terrainsList)
                 SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
-                Log.d("shape", SharedApp.prefs.name.toString())
                 finish()
             }
         }

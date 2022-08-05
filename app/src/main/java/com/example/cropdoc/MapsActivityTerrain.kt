@@ -18,7 +18,7 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
     private var marker: Marker?= null
     private var resetMarker: Button?= null
     private var saveMarkers: Button?= null
-    private var markers: MutableList<Marker> ?= mutableListOf()
+    private var markers: MutableList<LatLng> ?= mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps_terrain)
@@ -48,9 +48,7 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
     }
     override fun onMapClick(p0: LatLng) {
         marker = mMap.addMarker(MarkerOptions().position(p0))
-        marker?.let { markers?.add(it) ?: marker }
-        Log.d("marker",marker.toString())
-        Log.d("markers",markers.toString())
+        marker?.let { markers?.add(it.position) }
     }
 
     private fun eraseAll(){
