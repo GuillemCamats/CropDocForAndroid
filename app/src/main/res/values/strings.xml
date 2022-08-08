@@ -41,4 +41,8 @@
     <string name="save_terrain">Save Terrain</string>
     <string name="select_terrain">Select Terrain</string>
     <string name="create_terrain">Create Terrain</string>
+    <string name="send_kml">Send KML</string>
+    <string name="startorbit">Start Orbit</string>
+    <string name="stop_orbit">Stop Orbit</string>
+    <string name="send_kmls">Send Kmls</string>
 </resources>

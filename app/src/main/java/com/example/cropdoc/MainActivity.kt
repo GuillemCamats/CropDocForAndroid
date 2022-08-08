@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (!SharedApp.prefs.name.toString().equals(null)){
-           // parseToObj()
+           parseToObj()
         }
 
         val buttonClick = findViewById<Button>(R.id.fotoCrop)
@@ -26,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         val buttonClick2 = findViewById<Button>(R.id.connectLg)
         buttonClick2.setOnClickListener {
             val intent = Intent(this, MainActivity3::class.java)
+            startActivity(intent)
+        }
+        val sendkmls = findViewById<Button>(R.id.kmlsIni)
+        sendkmls.setOnClickListener {
+            val intent = Intent(this, TerrainToKml::class.java)
             startActivity(intent)
         }
     }

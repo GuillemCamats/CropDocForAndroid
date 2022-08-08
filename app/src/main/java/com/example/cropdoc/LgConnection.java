@@ -69,7 +69,7 @@ public class LgConnection {
                     "<Document>\n" +
                     "\t<name>Proyecto sin título</name>\n" +
                     "\t<gx:CascadingStyle kml:id=\"__managed_style_038561E3E121158D50C2\">\n" +
-                    "\t\t<Style>\n" +
+                     "\t\t<Style>\n" +
                     "\t\t\t<IconStyle>\n" +
                     "\t\t\t\t<scale>1.2</scale>\n" +
                     "\t\t\t\t<Icon>\n" +
@@ -294,7 +294,7 @@ public class LgConnection {
                     "</kml>";
 
             createKmlsRepo();
-            String lgdirection = "http://192.168.1.85:81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString();
+            String lgdirection = "http://"+host+":81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString();
             String remoteKml = "/var/www/html/kmls/kmlReader.kml";
             String remoteTxt = "/var/www/html/kmls.txt";
             Channel channel = session.openChannel("sftp");
@@ -382,7 +382,7 @@ public class LgConnection {
         orbit += "</kml>\n";
         System.out.println("fora bucle");
         if (session.isConnected()) {
-            String lgdirection = "http://192.168.1.85:81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString()+"\n"+"http://192.168.1.85:81/kmls/orbit.kml"+"?id="+ZonedDateTime.now().toString();
+            String lgdirection = "http://"+host+":81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString()+"\n"+"http://"+host+":81/kmls/orbit.kml"+"?id="+ZonedDateTime.now().toString();
 
             String remoteKml = "/var/www/html/kmls/orbit.kml";
             String remoteTxt = "/var/www/html/kmls.txt";
