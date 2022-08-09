@@ -12,7 +12,7 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
     lateinit var list :ListView
     lateinit var createTerrain: Button
     lateinit var selectTerrain: Button
-    var terrainName: String ?=null
+    var terrainName: String ?=null  
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
