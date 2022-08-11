@@ -12,7 +12,7 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
     lateinit var list :ListView
     lateinit var createTerrain: Button
     lateinit var selectTerrain: Button
-    var terrainName: String ?=null  
+    var terrainName: String ?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +58,7 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         terrainName =parent?.getItemAtPosition(position) as String
         Toast.makeText(applicationContext,
-            "Color Name:$terrainName",
+            "Terrain name:$terrainName",
             Toast.LENGTH_LONG).show()
     }
 

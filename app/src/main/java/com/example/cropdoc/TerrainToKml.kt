@@ -3,8 +3,11 @@ package com.example.cropdoc
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 
 class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
     lateinit var setIpToConn: EditText
@@ -54,7 +57,18 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
         }
 
         sendKml.setOnClickListener {
-            lgConnection?.sendKml()
+            if (!terrainName.equals(null)){
+                val id = Terrains.getTerrainsListNames()[terrainName]
+                var locations = ""
+                val terrain = id?.let { it1 -> Terrains.terrainsList.get(it1) }
+                val kmlTerrain = terrain?.terrain
+                if (kmlTerrain != null) {
+                    locations = fromStringToKmlData(kmlTerrain)
+                }
+                Log.d("kml",locations)
+                Log.d("kml",kmlTerrain.toString())
+                //lgConnection?.sendKml()
+            }
         }
 
 
@@ -62,8 +76,16 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         terrainName =parent?.getItemAtPosition(position) as String
         Toast.makeText(applicationContext,
-            "Color Name:$terrainName",
+            "Terrain name:$terrainName",
             Toast.LENGTH_LONG).show()
+    }
+
+    fun fromStringToKmlData (data: List<LatLng>): String {
+        var kmlLoc :String = ""
+        for (item in data){
+            kmlLoc += item.latitude.toString()+","+item.longitude.toString()+",0 "
+        }
+        return kmlLoc
     }
 
 }

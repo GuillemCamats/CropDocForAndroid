@@ -74,8 +74,11 @@
 
     <ListView
         android:id="@+id/list_kmls"
-        android:layout_width="410dp"
-        android:layout_height="573dp"
+        android:layout_width="413dp"
+        android:layout_height="543dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
