@@ -5,6 +5,7 @@ import android.os.StrictMode;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.jcraft.jsch.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -61,7 +62,7 @@ public class LgConnection {
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void sendKml(String terrain, String trees) throws JSchException, SftpException {
+    public void sendKml(Terrains terrain) throws JSchException, SftpException {
         if(session.isConnected()){
             //createKmlsRepo();
 
@@ -181,13 +182,14 @@ public class LgConnection {
         }
     }
 
-    private String createKml(String points){
-        List list = Arrays.asList(points.split(","));
+    private String createKml(Terrains terrains){
+        String points = fromStringToKmlData(terrains);
+        String name = terrains.name;
 
-        String kml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        StringBuilder kml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
                 "<Document>\n" +
-                "\t<name>Building 40</name>\n" +
+                "\t<name>" + name + "</name>\n" +
                 "\t<gx:CascadingStyle kml:id=\"__managed_style_2F473FA9AE2350AE102F\">\n" +
                 "\t\t<Style>\n" +
                 "\t\t\t<IconStyle>\n" +
@@ -246,15 +248,24 @@ public class LgConnection {
                 "\t\t\t<outerBoundaryIs>\n" +
                 "\t\t\t\t<LinearRing>\n" +
                 "\t\t\t\t\t<coordinates>\n" +
-                "\t\t\t\t\t\t"+points+"\n" +
+                "\t\t\t\t\t\t" + points + "\n" +
                 "\t\t\t\t\t</coordinates>\n" +
                 "\t\t\t\t</LinearRing>\n" +
                 "\t\t\t</outerBoundaryIs>\n" +
-                "\t\t</Polygon>\n" +
-                "\t</Placemark>\n" +
-                "</Document>\n" +
-                "</kml>";
-        return kml;
+                "\t\t</Polygon>\n");
+
+        for (Locations tree: terrains.trees){
+            kml.append("</Placemark>\n" + "\t\t<name>tree</name>\n" + "\t\t<LookAt>\n" + "\t\t\t<longitude>").append(tree.coordinates.longitude).append("</longitude>\n").append("\t\t\t<latitude>").append(tree.coordinates.latitude).append("</latitude>\n").append("\t\t\t<altitude>0</altitude>\n").append("\t\t\t<heading>0</heading>\n").append("\t\t\t<tilt>0</tilt>\n").append("\t\t\t<gx:fovy>30</gx:fovy>\n").append("\t\t\t<range>500</range>\n").append("\t\t\t<altitudeMode>absolute</altitudeMode>\n").append("\t\t</LookAt>\n").append("\t\t<styleUrl>#__managed_style_133D9A0E7523C70A932C</styleUrl>\n").append("\t\t<gx:Carousel>\n").append("\t\t</gx:Carousel>\n").append("\t\t<Point>\n").append("\t\t\t<coordinates>").append(tree.coordinates.longitude).append(",").append(tree.coordinates.latitude).append(",0</coordinates>\n").append("\t\t</Point>\n").append("\t</Placemark>");
+        }
+        kml.append("</Document>\n" + "</kml>");
+        return kml.toString();
+    }
+    private String fromStringToKmlData (Terrains data){
+        StringBuilder kmlLoc = new StringBuilder();
+        for (LatLng elem : data.terrain){
+            kmlLoc.append(elem.latitude).append(",").append(elem.longitude).append(",0 ");
+        }
+        return kmlLoc.toString();
     }
 }
 

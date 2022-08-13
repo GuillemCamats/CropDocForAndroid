@@ -59,15 +59,8 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
         sendKml.setOnClickListener {
             if (!terrainName.equals(null)){
                 val id = Terrains.getTerrainsListNames()[terrainName]
-                var locations = ""
                 val terrain = id?.let { it1 -> Terrains.terrainsList.get(it1) }
-                val kmlTerrain = terrain?.terrain
-                if (kmlTerrain != null) {
-                    locations = fromStringToKmlData(kmlTerrain)
-                }
-                Log.d("kml",locations)
-                Log.d("kml",kmlTerrain.toString())
-                //lgConnection?.sendKml()
+                lgConnection?.sendKml(terrain)
             }
         }
 
@@ -80,12 +73,6 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
             Toast.LENGTH_LONG).show()
     }
 
-    fun fromStringToKmlData (data: List<LatLng>): String {
-        var kmlLoc :String = ""
-        for (item in data){
-            kmlLoc += item.latitude.toString()+","+item.longitude.toString()+",0 "
-        }
-        return kmlLoc
-    }
+
 
 }
