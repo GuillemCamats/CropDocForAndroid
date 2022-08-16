@@ -64,6 +64,19 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
             }
         }
 
+        startOrbit.setOnClickListener {
+            if (!terrainName.equals(null)){
+                val id = Terrains.getTerrainsListNames()[terrainName]
+                val terrain = id?.let { it1 -> Terrains.terrainsList.get(it1) }
+                if (terrain != null) {
+                    lgConnection?.generateAndSendOrbit(terrain.trees.get(0).coordinates.latitude.toString(),terrain.trees.get(0).coordinates.longitude.toString(),"0","0","0","300")
+                }
+            }
+        }
+        stopOrbit.setOnClickListener {
+            //lgConnection.
+        }
+
 
     }
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

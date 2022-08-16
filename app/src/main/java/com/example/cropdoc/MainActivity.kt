@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TerrainToKml::class.java)
             startActivity(intent)
         }
+        val about = findViewById<Button>(R.id.about)
+        about.setOnClickListener {
+            val intent = Intent(this, About::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun parseToObj(){

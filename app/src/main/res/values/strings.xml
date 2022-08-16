@@ -45,4 +45,5 @@
     <string name="startorbit">Start Orbit</string>
     <string name="stop_orbit">Stop Orbit</string>
     <string name="send_kmls">Send Kmls</string>
+    <string name="about">About</string>
 </resources>

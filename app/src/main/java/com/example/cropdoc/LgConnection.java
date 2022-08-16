@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class LgConnection {
     static String user;
@@ -124,7 +125,7 @@ public class LgConnection {
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void generateAndSendOrbit(String lat, String lon, String altitude, String heading, String tilt, String  pRange) throws JSchException, SftpException {
+    public void generateAndSendOrbit(String lat, String lon, String altitude, String heading, String tilt, String  pRange) throws JSchException, SftpException, InterruptedException {
         String orbit = "";
         orbit += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         orbit += "<kml xmlns=\"http://www.opengis.net/kml/2.2\"\n";
@@ -168,6 +169,7 @@ public class LgConnection {
             //sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","1000","1.2");
             channelSftp.put(in, remoteKml);
             channelSftp.put(in2,remoteTxt);
+            TimeUnit.SECONDS.sleep(2);
             startOrbit();
         }
     }
@@ -181,7 +183,6 @@ public class LgConnection {
             channel.connect();
         }
     }
-
     private String createKml(Terrains terrains){
         String points = fromStringToKmlData(terrains);
         String name = terrains.name;
