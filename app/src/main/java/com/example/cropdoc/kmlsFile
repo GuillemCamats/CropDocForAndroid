@@ -1,5 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+<name>terrainLleida </name>
+<gx:CascadingStyle kml:id="__managed_style_2F473FA9AE2350AE102F">
+<Style>
+<IconStyle>
+<scale>1.44</scale>
+<Icon>
+<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+</Icon>
+</IconStyle>
+<LabelStyle>
+</LabelStyle>
+<LineStyle>
+<color>ff2f2fd3</color>
+<width>1.5</width>
+</LineStyle>
+<PolyStyle>
+<color>405053ef</color>
+</PolyStyle>
+<BalloonStyle>
+</BalloonStyle>
+</Style>
+</gx:CascadingStyle>
+<gx:CascadingStyle kml:id="__managed_style_1612DF88E12350AE102F">
+<Style>
+<IconStyle>
+<scale>1.2</scale>
+<Icon>
+<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+</Icon>
+</IconStyle>
+<LabelStyle>
+</LabelStyle>
+<LineStyle>
+<color>ff2f2fd3</color>
+</LineStyle>
+<PolyStyle>
+<color>405053ef</color>
+</PolyStyle>
+<BalloonStyle>
+</BalloonStyle>
+</Style>
+</gx:CascadingStyle>
+<StyleMap id="__managed_style_0A4E8DF9442350AE102F">
+<Pair>
+<key>normal</key>
+<styleUrl>#__managed_style_1612DF88E12350AE102F</styleUrl>
+</Pair>
+<Pair>
+<key>highlight</key>
+<styleUrl>#__managed_style_2F473FA9AE2350AE102F</styleUrl>
+</Pair>
+</StyleMap>
+<Placemark id="0DD45D6B5C2350AD6141">
+<name>Building 40</name>
+<styleUrl>#__managed_style_0A4E8DF9442350AE102F</styleUrl>
+<Polygon>
+<outerBoundaryIs>
+<LinearRing>
+<coordinates>
+41.61551551702195,0.6013623252511024,0 41.61541700813293,0.6017814204096795,0 41.616630186002894,0.6021116673946381,0 41.616688337757424,0.6015826016664505,0
+</coordinates>
+</LinearRing>
+</outerBoundaryIs>
+</Polygon>
+</Placemark>
+<name>tree</name>
+<LookAt>
+<longitude>0.601748563349247</longitude>
+<latitude>41.61616196220671</latitude>
+<altitude>0</altitude>
+<heading>0</heading>
+<tilt>0</tilt>
+<gx:fovy>30</gx:fovy>
+<range>500</range>
+<altitudeMode>absolute</altitudeMode>
+</LookAt>
+<styleUrl>#__managed_style_133D9A0E7523C70A932C</styleUrl>
+<gx:Carousel>
+</gx:Carousel>
+<Point>
+<coordinates>41.61616196220671,0.601748563349247,0</coordinates>
+</Point>
+</Placemark>
+<name>tree</name>
+<LookAt>
+<longitude>0.6017452105879784</longitude>
+<latitude>41.6160667128385</latitude>
+<altitude>0</altitude>
+<heading>0</heading>
+<tilt>0</tilt>
+<gx:fovy>30</gx:fovy>
+<range>500</range>
+<altitudeMode>absolute</altitudeMode>
+</LookAt>
+<styleUrl>#__managed_style_133D9A0E7523C70A932C</styleUrl>
+<gx:Carousel>
+</gx:Carousel>
+<Point>
+<coordinates>41.6160667128385,0.6017452105879784,0</coordinates>
+</Point>
+</Document>
+</kml>
+-------
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Placemark>
           <name>Building 40</name>
           <visibility>25</visibility>
@@ -17,7 +123,6 @@
 </kml>
 
 --------
-
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>

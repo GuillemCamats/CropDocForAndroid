@@ -1,5 +1,6 @@
 package com.example.cropdoc
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -30,7 +31,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         addMarker = findViewById(R.id.addMarker)
         addMarker?.setOnClickListener{
             if(marker!=null){
-                val name = intent.getStringExtra("name")
+
                 val prediction = intent.getStringExtra("pred")
                 val foto = intent.getStringExtra("bitmap")
                 val index = intent.getStringExtra("pos")
@@ -53,7 +54,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
                 val gson = Gson()
                 val json = gson.toJson(Terrains.terrainsList)
                 SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app
-                finish()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         }
     }

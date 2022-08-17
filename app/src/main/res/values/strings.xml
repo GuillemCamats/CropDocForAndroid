@@ -46,4 +46,6 @@
     <string name="stop_orbit">Stop Orbit</string>
     <string name="send_kmls">Send Kmls</string>
     <string name="about">About</string>
+    <string name="clean_kml">Clean Kml</string>
+    <string name="terrain_name">Terrain Name</string>
 </resources>

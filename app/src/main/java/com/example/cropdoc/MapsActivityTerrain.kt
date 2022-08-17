@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.*
@@ -18,6 +19,7 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
     private var marker: Marker?= null
     private var resetMarker: Button?= null
     private var saveMarkers: Button?= null
+    lateinit var nameT: EditText
     private var markers: MutableList<LatLng> ?= mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +30,16 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
         mapView?.getMapAsync(this)
         resetMarker = findViewById(R.id.resetMarkers)
         saveMarkers = findViewById(R.id.saveterrain)
+        nameT = findViewById(R.id.editTextTerrain)
         resetMarker?.setOnClickListener{
             eraseAll()
         }
         saveMarkers?.setOnClickListener{
-            Log.d("markers",markers.toString())
-            if(markers!=null){
-                val terrains = Terrains("test",markers,null)
+
+            if(markers!=null && !nameT.text.toString().equals(null)){
+                val terrains = Terrains(nameT.text.toString(),markers,null)
                 Terrains.terrainsList.add(terrains)
+                Log.d("terr",Terrains.terrainsList.toString())
                 val intent = Intent(this,SelectTerrainActivity::class.java)
                 startActivity(intent)
             }

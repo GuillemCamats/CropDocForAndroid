@@ -46,6 +46,7 @@ public class LgConnection {
             session.setTimeout(Integer.MAX_VALUE);
             session.connect();
             System.out.println("Connected");
+            setLogo();
         } catch (JSchException e) {
             e.printStackTrace();
         }
@@ -65,10 +66,12 @@ public class LgConnection {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void sendKml(Terrains terrain) throws JSchException, SftpException {
         if(session.isConnected()){
-            //createKmlsRepo();
+
 
             createKmlsRepo();
             String finalkml = createKml(terrain);
+            String lat = String.valueOf(terrain.trees.get(0).coordinates.latitude);
+            String lon = String.valueOf(terrain.trees.get(0).coordinates.longitude);
             String lgdirection = "http://"+host+":81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString();
             String remoteKml = "/var/www/html/kmls/kmlReader.kml";
             String remoteTxt = "/var/www/html/kmls.txt";
@@ -77,7 +80,7 @@ public class LgConnection {
             ByteArrayInputStream in = new ByteArrayInputStream(finalkml.getBytes(StandardCharsets.UTF_8));
             ByteArrayInputStream in2 = new ByteArrayInputStream(lgdirection.getBytes(StandardCharsets.UTF_8));
             ChannelSftp channelSftp = (ChannelSftp) channel;
-            sendFylTo("0.6017395820287597","41.61585346355983","167.7448095566884","0","5","200","1.2");
+            sendFylTo(lat,lon,"0","0","5","500","1.2");
             channelSftp.put(in, remoteKml);
             channelSftp.put(in2,remoteTxt);
         }
@@ -93,20 +96,11 @@ public class LgConnection {
             channel.connect();
         }
     }
-    public void deleteKmls() throws JSchException {
-        if(session.isConnected()){
-            Channel channel = session.openChannel("exec");
-            ((ChannelExec) channel).setCommand("rm -r /var/www/html/kmls");
-            channel.setInputStream(null);
-            ((ChannelExec) channel).setErrStream(System.err);
-            channel.connect();
-        }
-    }
     
     public void sendFylTo(String lat,String lon,String altitude,String heading,String tilt,String  pRange,String duration) throws JSchException{
         String kml = "<LookAt>" +
-                "<longitude>" + lat + "</longitude>" +
-                "<latitude>" + lon + "</latitude>" +
+                "<longitude>" + lon + "</longitude>" +
+                "<latitude>" + lat + "</latitude>" +
                 "<altitude>" + altitude + "</altitude>" +
                 "<heading>" + heading + "</heading>" +
                 "<tilt>" + tilt + "</tilt>" +
@@ -183,6 +177,24 @@ public class LgConnection {
             channel.connect();
         }
     }
+    public void stopOrbit() throws JSchException, IOException {
+        if (session.isConnected()){
+            sendCommand("echo 'exittour=true' > /tmp/query.txt");
+        }
+    }
+    public void cleanKmls() throws JSchException, IOException {
+        if (session.isConnected()){
+            sendCommand("> /var/www/html/kmls.txt");
+            sendCommand("echo '' > /var/www/html/kml/slave_5.kml");
+        }
+    }
+    public void cleanAll() throws JSchException, IOException {
+        if(session.isConnected()){
+            cleanKmls();
+            stopOrbit();
+            deleteLogo();
+        }
+    }
     private String createKml(Terrains terrains){
         String points = fromStringToKmlData(terrains);
         String name = terrains.name;
@@ -253,10 +265,11 @@ public class LgConnection {
                 "\t\t\t\t\t</coordinates>\n" +
                 "\t\t\t\t</LinearRing>\n" +
                 "\t\t\t</outerBoundaryIs>\n" +
-                "\t\t</Polygon>\n");
+                "\t\t</Polygon>\n" +
+                "</Placemark>\n");
 
         for (Locations tree: terrains.trees){
-            kml.append("</Placemark>\n" + "\t\t<name>tree</name>\n" + "\t\t<LookAt>\n" + "\t\t\t<longitude>").append(tree.coordinates.longitude).append("</longitude>\n").append("\t\t\t<latitude>").append(tree.coordinates.latitude).append("</latitude>\n").append("\t\t\t<altitude>0</altitude>\n").append("\t\t\t<heading>0</heading>\n").append("\t\t\t<tilt>0</tilt>\n").append("\t\t\t<gx:fovy>30</gx:fovy>\n").append("\t\t\t<range>500</range>\n").append("\t\t\t<altitudeMode>absolute</altitudeMode>\n").append("\t\t</LookAt>\n").append("\t\t<styleUrl>#__managed_style_133D9A0E7523C70A932C</styleUrl>\n").append("\t\t<gx:Carousel>\n").append("\t\t</gx:Carousel>\n").append("\t\t<Point>\n").append("\t\t\t<coordinates>").append(tree.coordinates.longitude).append(",").append(tree.coordinates.latitude).append(",0</coordinates>\n").append("\t\t</Point>\n").append("\t</Placemark>");
+            kml.append("\t<Placemark id='07DF45709F23E21EAD5D'>\n").append("\t\t<name>"+ tree.prediction +"</name>\n" + "\t\t<LookAt>\n" + "\t\t\t<longitude>").append(tree.coordinates.longitude).append("</longitude>\n").append("\t\t\t<latitude>").append(tree.coordinates.latitude).append("</latitude>\n").append("\t\t\t<altitude>0</altitude>\n").append("\t\t\t<heading>0</heading>\n").append("\t\t\t<tilt>0</tilt>\n").append("\t\t\t<gx:fovy>30</gx:fovy>\n").append("\t\t\t<range>500</range>\n").append("\t\t\t<altitudeMode>absolute</altitudeMode>\n").append("\t\t</LookAt>\n").append("\t\t<styleUrl>#__managed_style_133D9A0E7523C70A932C</styleUrl>\n").append("\t\t<Point>\n").append("\t\t\t<coordinates>").append(tree.coordinates.longitude).append(",").append(tree.coordinates.latitude).append(",0</coordinates>\n").append("\t\t</Point>\n").append("\t</Placemark>\n");
         }
         kml.append("</Document>\n" + "</kml>");
         return kml.toString();
@@ -264,10 +277,47 @@ public class LgConnection {
     private String fromStringToKmlData (Terrains data){
         StringBuilder kmlLoc = new StringBuilder();
         for (LatLng elem : data.terrain){
-            kmlLoc.append(elem.latitude).append(",").append(elem.longitude).append(",0 ");
+            kmlLoc.append(elem.longitude).append(",").append(elem.latitude).append(",0 ");
         }
+        kmlLoc.append(data.terrain.get(0).longitude).append(",").append(data.terrain.get(0).latitude).append(",0 ");
         return kmlLoc.toString();
     }
+    private void setLogo() throws JSchException {
+        String logo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "  <kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
+                "    <Document>\n" +
+                "      <name>Ras-logos</name>\n" +
+                "        <Folder>\n" +
+                "        <name>Logos</name>\n" +
+                "        <ScreenOverlay>\n" +
+                "        <name>Logo</name>\n" +
+                "        <Icon>\n" +
+                "        <href>https://imgur.com/a/vwEMBFr</href>\n" +
+                "        </Icon>\n" +
+                "        <overlayXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                "        <screenXY x=\"0.02\" y=\"0.95\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                "        <rotationXY x=\"0\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                "        <size x=\"0.4\" y=\"0.2\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                "        </ScreenOverlay>\n" +
+                "        </Folder>\n" +
+                "    </Document>\n" +
+                "  </kml>";
+        if (session.isConnected()) {
+            String command= "echo '"+logo+"' > /var/www/html/kml/slave_1.kml";
+            Channel channel = session.openChannel("exec");
+            ((ChannelExec) channel).setCommand(command);
+            channel.setInputStream(null);
+            ((ChannelExec) channel).setErrStream(System.err);
+            channel.connect();
+        }
+    }
+    private void deleteLogo() throws JSchException, IOException {
+        if (session.isConnected()){
+            sendCommand("echo '' > /var/www/html/kml/slave_5.kml");
+        }
+    }
+
+
 }
 
 
