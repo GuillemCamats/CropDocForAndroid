@@ -48,4 +48,6 @@
     <string name="about">About</string>
     <string name="clean_kml">Clean Kml</string>
     <string name="terrain_name">Terrain Name</string>
+    <string name="take_picture">Take picture</string>
+    <string name="take_a_photo">Take a photo</string>
 </resources>

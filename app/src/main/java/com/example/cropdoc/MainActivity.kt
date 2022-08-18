@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (!SharedApp.prefs.name.toString().equals(null)){
+        if (SharedApp.prefs.name.toString() != "def_val"){
            parseToObj()
         }
 
@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         for(elem in list){
             Terrains.terrainsList.add(elem)
         }
-        Log.d("list",Locations.pointsList.toString())
     }
 
 

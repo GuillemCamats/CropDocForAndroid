@@ -14,17 +14,23 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cropdoc.databinding.ActivityMain2Binding
 import com.example.cropdoc.ml.LiteModelDiseaseClassification1
 import org.tensorflow.lite.support.image.TensorImage
 
 
-class MainActivity2 : AppCompatActivity() {
+class MainActivity2 : AppCompatActivity(){
     private var pantalla: ImageView ?= null
+    private lateinit var binding: ActivityMain2Binding
     var confirm: Button ?=null
     var data: Uri ?= null
     var text: TextView ?= null
+    lateinit var takePicture: Button
     private var bitmap: Bitmap ?= null
     var prediction: String ?= null
+
+
+
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +40,11 @@ class MainActivity2 : AppCompatActivity() {
         val buttonClick = findViewById<Button>(R.id.buttonLoadPicture)
         confirm = findViewById(R.id.buttonConfirm)
         val location = findViewById<Button>(R.id.add_location)
+        takePicture = findViewById(R.id.takePicture)
+
+        takePicture.setOnClickListener {
+
+        }
 
         buttonClick.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -72,7 +83,9 @@ class MainActivity2 : AppCompatActivity() {
             startActivity(intent)
         }
 
+
     }
+
     fun stringSelector(s: String): String {
 
         val typeplant = s.drop(15)
@@ -96,4 +109,5 @@ class MainActivity2 : AppCompatActivity() {
             pantalla?.setImageBitmap(bitmap)
         }
     }
+
 }
