@@ -40,11 +40,6 @@ class MainActivity2 : AppCompatActivity(){
         val buttonClick = findViewById<Button>(R.id.buttonLoadPicture)
         confirm = findViewById(R.id.buttonConfirm)
         val location = findViewById<Button>(R.id.add_location)
-        takePicture = findViewById(R.id.takePicture)
-
-        takePicture.setOnClickListener {
-
-        }
 
         buttonClick.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
