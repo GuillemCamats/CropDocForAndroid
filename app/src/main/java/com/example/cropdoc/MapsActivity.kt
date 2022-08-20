@@ -1,6 +1,7 @@
 package com.example.cropdoc
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -36,8 +37,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         addMarker = findViewById(R.id.addMarker)
         addMarker?.setOnClickListener{
             if(marker!=null){
-
                 val prediction = intent.getStringExtra("pred")
+                Log.d("pred maps",prediction.toString())
                 val foto = intent.getStringExtra("bitmap")
                 val index = intent.getStringExtra("pos")
                 val locations = Locations(marker!!.position,prediction,foto)
@@ -89,6 +90,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
             this,
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
+    @SuppressLint("MissingPermission")
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
             mMap.isMyLocationEnabled = true
@@ -105,6 +107,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_LOCATION_PERMISSION) {
             if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
                 enableMyLocation()

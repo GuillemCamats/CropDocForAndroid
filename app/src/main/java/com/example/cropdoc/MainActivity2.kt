@@ -7,6 +7,7 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -74,6 +75,7 @@ class MainActivity2 : AppCompatActivity(){
         location.setOnClickListener{
             val intent = Intent(this@MainActivity2, SelectTerrainActivity::class.java)
             intent.putExtra("pred",prediction)
+            Log.d("pred",prediction.toString())
             intent.putExtra("bitmap",bitmap.toString())
             startActivity(intent)
         }

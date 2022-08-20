@@ -18,9 +18,10 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_terrain)
         list = findViewById(R.id.terrainsList)
+        val foto = intent.getStringExtra("bitmap")
         createTerrain = findViewById(R.id.createTerrain)
         selectTerrain = findViewById(R.id.selectTerrain)
-
+        val prediction = intent.getStringExtra("pred")
         val namesTerrains: ArrayList<String> = arrayListOf()
         for (elem in Terrains.getTerrainsListNames()){
             namesTerrains.add(elem.key)
@@ -50,6 +51,9 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
                 val intent = Intent(this,MapsActivity::class.java)
                 intent.putExtra("name", terrainName)
                 intent.putExtra("pos", Terrains.getTerrainsListNames()[terrainName].toString())
+                Log.d("pred select",prediction.toString())
+                intent.putExtra("pred",prediction)
+                intent.putExtra("bitmap",foto.toString())
                 startActivity(intent)
             }
         }
