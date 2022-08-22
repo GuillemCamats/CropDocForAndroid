@@ -1,11 +1,13 @@
 package com.example.cropdoc
 
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 
@@ -20,6 +22,7 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
     var lgConnection: LgConnection? = null
     var terrainName: String ?=null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {// netejar kmls falte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_terrain_to_kml)

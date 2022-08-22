@@ -139,9 +139,9 @@ public class LgConnection {
             orbit += "\t\t\t\t<latitude>"+lat+"</latitude>\n";
             orbit += "\t\t\t\t<altitude>"+altitude+"</altitude>\n";
             orbit += "\t\t\t\t<heading>"+o+"</heading>\n";
-            orbit += "\t\t\t\t<tilt>"+tilt+"</tilt>\n";
+            orbit += "\t\t\t\t<tilt>60</tilt>\n";
             orbit += "\t\t\t\t<gx:fovy>35</gx:fovy>\n";
-            orbit += "\t\t\t\t<range>"+pRange+"</range>\n";
+            orbit += "\t\t\t\t<range>800</range>\n";
             orbit += "\t\t\t\t<gx:altitudeMode>relativeToGround</gx:altitudeMode>\n";
             orbit += "\t\t\t</LookAt>\n";
             orbit += "\t\t</gx:FlyTo>\n";
