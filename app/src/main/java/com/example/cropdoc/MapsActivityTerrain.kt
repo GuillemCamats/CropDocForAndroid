@@ -37,6 +37,8 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
         resetMarker = findViewById(R.id.resetMarkers)
         saveMarkers = findViewById(R.id.saveterrain)
         nameT = findViewById(R.id.editTextTerrain)
+        val foto = intent.getStringExtra("bitmap")
+        val prediction = intent.getStringExtra("pred")
         resetMarker?.setOnClickListener{
             eraseAll()
         }
@@ -47,6 +49,8 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
                 Terrains.terrainsList.add(terrains)
                 Log.d("terr",Terrains.terrainsList.toString())
                 val intent = Intent(this,SelectTerrainActivity::class.java)
+                intent.putExtra("bitmap",foto)
+                intent.putExtra("pred",prediction)
                 startActivity(intent)
             }
         }

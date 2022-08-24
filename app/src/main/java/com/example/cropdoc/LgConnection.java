@@ -64,10 +64,10 @@ public class LgConnection {
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void sendKml(Terrains terrain) throws JSchException, SftpException {
+    public void sendKml(Terrains terrain) throws JSchException, SftpException, IOException {
         if(session.isConnected()){
 
-
+            generate_ballon(terrain);
             createKmlsRepo();
             String finalkml = createKml(terrain);
             String lat = String.valueOf(terrain.trees.get(0).coordinates.latitude);
@@ -83,6 +83,7 @@ public class LgConnection {
             sendFylTo(lat,lon,"0","0","5","500","1.2");
             channelSftp.put(in, remoteKml);
             channelSftp.put(in2,remoteTxt);
+
         }
     }
     public void createKmlsRepo() throws JSchException {
@@ -119,7 +120,7 @@ public class LgConnection {
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void generateAndSendOrbit(String lat, String lon, String altitude, String heading, String tilt, String  pRange) throws JSchException, SftpException, InterruptedException {
+    public void generateAndSendOrbit(String lat, String lon, String altitude) throws JSchException, SftpException, InterruptedException {
         String orbit = "";
         orbit += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         orbit += "<kml xmlns=\"http://www.opengis.net/kml/2.2\"\n";
@@ -316,7 +317,74 @@ public class LgConnection {
             sendCommand("echo '' > /var/www/html/kml/slave_5.kml");
         }
     }
-
+    private void generate_ballon(Terrains terrain) throws JSchException, IOException {
+        String des = generateDesc(terrain);
+        String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
+                "<Document>\n" +
+                " <name>"+terrain.name+"</name>\n" +
+                " <Style id=\"purple_paddle\">\n" +
+                "   <BalloonStyle>\n" +
+                "     <text>$[description]</text>\n" +
+                "     <bgColor>ff1e1e1e</bgColor>\n" +
+                "   </BalloonStyle>\n" +
+                " </Style>\n" +
+                " <Placemark id=\"0A7ACC68BF23CB81B354\">\n" +
+                "   <name>"+terrain.name+"</name>\n" +
+                "   <Snippet maxLines=\"0\"></Snippet>\n" +
+                "   <description><![CDATA[<!-- BalloonStyle background color:\n" +
+                "ffffffff\n" +
+                "-->\n" +
+                "<!-- Icon URL:\n" +
+                "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png\n" +
+                "-->\n" +
+                "<table width=\"400\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <h2><font color='#00CC99'>"+terrain.name+"</font></h2>\n" +
+                "     <h3><font color='#00CC99'>Information of the terrain</font></h3>\n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: "+des+" \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                "</table>]]></description>\n" +
+                "   <LookAt>\n" +
+                "     <longitude>"+terrain.terrain.get(0).longitude+"</longitude>\n" +
+                "     <latitude>"+terrain.terrain.get(0).latitude+"</latitude>\n" +
+                "     <altitude>0</altitude>\n" +
+                "     <heading>0</heading>\n" +
+                "     <tilt>0</tilt>\n" +
+                "     <range>500</range>\n" +
+                "   </LookAt>\n" +
+                "   <styleUrl>#purple_paddle</styleUrl>\n" +
+                "   <gx:balloonVisibility>1</gx:balloonVisibility>\n" +
+                "   <Point>\n" +
+                "     <coordinates>"+terrain.terrain.get(0).longitude+terrain.terrain.get(0).latitude+",0</coordinates>\n" +
+                "   </Point>\n" +
+                " </Placemark>\n" +
+                "</Document>\n" +
+                "</kml>";
+        if (session.isConnected()) {
+            String command= "echo '"+s+"' > /var/www/html/kml/slave_3.kml";
+            sendCommand(command);
+        }
+    }
+    private String generateDesc(Terrains terrain){
+        int samplesNum = 0;
+        StringBuilder trees = new StringBuilder();
+        for (Locations elem: terrain.trees){
+            String name = elem.prediction.split("\\|")[0];
+            String pred = elem.prediction.split("\\|")[1];
+            trees.append(" It has a tree with ").append(name).append(" and with an acuracy of ").append(pred);
+            samplesNum += 1;
+        }
+        String s = "This terrain contains a total of "+samplesNum+" trees, this are the condition of all the trees:";
+        s += trees;
+        return s;
+    }
 
 }
 

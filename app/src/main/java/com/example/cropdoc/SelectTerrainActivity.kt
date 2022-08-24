@@ -44,6 +44,8 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
 
         createTerrain.setOnClickListener{
             val intent = Intent(this,MapsActivityTerrain::class.java)
+            intent.putExtra("pred",prediction)
+            intent.putExtra("bitmap",foto.toString())
             startActivity(intent)
         }
         selectTerrain.setOnClickListener {
@@ -51,7 +53,6 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
                 val intent = Intent(this,MapsActivity::class.java)
                 intent.putExtra("name", terrainName)
                 intent.putExtra("pos", Terrains.getTerrainsListNames()[terrainName].toString())
-                Log.d("pred select",prediction.toString())
                 intent.putExtra("pred",prediction)
                 intent.putExtra("bitmap",foto.toString())
                 startActivity(intent)
