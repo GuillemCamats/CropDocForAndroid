@@ -187,6 +187,7 @@ public class LgConnection {
         if (session.isConnected()){
             sendCommand("> /var/www/html/kmls.txt");
             sendCommand("echo '' > /var/www/html/kml/slave_5.kml");
+            sendCommand("echo '' > /var/www/html/kml/slave_3.kml");
         }
     }
     public void cleanAll() throws JSchException, IOException {
