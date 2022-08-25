@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -415,21 +416,12 @@ public class LgConnection {
         s += trees;
         return s;
     }
-    public File files(String data){
-        File file = new File("sample");
+    public File files(String data) throws IOException {
+        File file = new File("sample.png");
+        FileWriter f = new FileWriter("filename.txt");
 
-        try(FileOutputStream fos = new FileOutputStream(file);
-            BufferedOutputStream bos = new BufferedOutputStream(fos)) {
-            //convert string to byte array
-            byte[] bytes = data.getBytes();
-            //write byte array to file
-            bos.write(bytes);
-            bos.close();
-            fos.close();
-            System.out.print("Data written to file successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        f.write(data);
+        f.close();
         return file;
     }
 }
