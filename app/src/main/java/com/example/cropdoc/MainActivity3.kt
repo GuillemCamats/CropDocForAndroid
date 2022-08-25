@@ -32,7 +32,7 @@ class MainActivity3 : AppCompatActivity() {
         connect.setOnClickListener{
             if (!setIp.text.toString().equals(null)){
                 lgConnection = LgConnection("lg","lqgalaxy",setIp.text.toString(),22)
-                lgConnection!!.connectD()
+                //lgConnection!!.connectD()
             }
         }
         relaunch.setOnClickListener{

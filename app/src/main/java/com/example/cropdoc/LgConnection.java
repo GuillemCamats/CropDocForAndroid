@@ -1,19 +1,26 @@
 package com.example.cropdoc;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.jcraft.jsch.*;
+
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -31,6 +38,7 @@ public class LgConnection {
     static String host;
     static int port;
     JSch jsch;
+    TerrainToKml context = null;
     Session session;
     String emptyKml = "<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n" +
             "         \"<kml xmlns=\\\"http://www.opengis.net/kml/2.2\\\" xmlns:gx=\\\"http://www.google.com/kml/ext/2.2\\\" xmlns:kml=\\\"http://www.opengis.net/kml/2.2\\\" xmlns:atom=\\\"http://www.w3.org/2005/Atom\\\">\\n" +
@@ -45,8 +53,9 @@ public class LgConnection {
     }
 
 
-    public void connectD(){
+    public void connectD(TerrainToKml con){
         try {
+            context = con;
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             jsch = new JSch();
@@ -332,6 +341,8 @@ public class LgConnection {
     }
     private void generate_ballon(Terrains terrain) throws JSchException, IOException {
         String des = generateDesc(terrain);
+        File f = files(terrain.trees.get(0).foto);
+        System.out.println(f);
         String fulla = "https://i.imgur.com/rC2BTfu.jpeg";
         String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
@@ -403,6 +414,23 @@ public class LgConnection {
         String s = "This terrain contains a total of "+samplesNum+" trees, this are the condition of all the trees:";
         s += trees;
         return s;
+    }
+    public File files(String data){
+        File file = new File("sample");
+
+        try(FileOutputStream fos = new FileOutputStream(file);
+            BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+            //convert string to byte array
+            byte[] bytes = data.getBytes();
+            //write byte array to file
+            bos.write(bytes);
+            bos.close();
+            fos.close();
+            System.out.print("Data written to file successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 }
 

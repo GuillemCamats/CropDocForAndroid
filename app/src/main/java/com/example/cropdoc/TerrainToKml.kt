@@ -58,7 +58,7 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
         connect.setOnClickListener {
             if (!setIpToConn.text.toString().equals(null)){
                 lgConnection = LgConnection("lg","lqgalaxy",setIpToConn.text.toString(),22)
-                lgConnection!!.connectD()
+                lgConnection!!.connectD(this)
             }
         }
 

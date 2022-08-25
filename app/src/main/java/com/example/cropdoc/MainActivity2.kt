@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cropdoc.databinding.ActivityMain2Binding
 import com.example.cropdoc.ml.LiteModelDiseaseClassification1
 import org.tensorflow.lite.support.image.TensorImage
+import java.io.File
 
 
 class MainActivity2 : AppCompatActivity(){
@@ -29,7 +31,7 @@ class MainActivity2 : AppCompatActivity(){
     lateinit var takePicture: Button
     private var bitmap: Bitmap ?= null
     var prediction: String ?= null
-
+    var f: File? = null
 
 
     @RequiresApi(Build.VERSION_CODES.P)
@@ -76,7 +78,7 @@ class MainActivity2 : AppCompatActivity(){
             val intent = Intent(this@MainActivity2, SelectTerrainActivity::class.java)
             intent.putExtra("pred",prediction)
             Log.d("pred",prediction.toString())
-            intent.putExtra("bitmap",bitmap.toString())
+            intent.putExtra("bitmap",f.toString())
             startActivity(intent)
         }
 
@@ -101,6 +103,7 @@ class MainActivity2 : AppCompatActivity(){
             // There are no request codes
             confirm?.isEnabled = true
             data = result.data?.data
+            f = data?.path?.let { File(it) }
             val source: ImageDecoder.Source? = data?.let { ImageDecoder.createSource(this.contentResolver, it) }
             bitmap = source?.let { ImageDecoder.decodeBitmap(it) }
             pantalla?.setImageBitmap(bitmap)
