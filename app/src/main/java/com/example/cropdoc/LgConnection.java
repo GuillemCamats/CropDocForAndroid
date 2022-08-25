@@ -53,7 +53,6 @@ public class LgConnection {
     }
     public void sendCommand(String command) throws JSchException, IOException {
         if(session.isConnected()){
-
             Channel channel = session.openChannel("exec");
             ((ChannelExec) channel).setCommand(command);
             channel.setInputStream(null);
@@ -185,16 +184,16 @@ public class LgConnection {
     }
     public void cleanKmls() throws JSchException, IOException {
         if (session.isConnected()){
+            String ola = "hola";
             sendCommand("> /var/www/html/kmls.txt");
-            sendCommand("echo '' > /var/www/html/kml/slave_5.kml");
-            sendCommand("echo '' > /var/www/html/kml/slave_3.kml");
+            sendCommand("echo '"+ola+"' > /var/www/html/kml/slave_3.kml");
         }
     }
     public void cleanAll() throws JSchException, IOException {
         if(session.isConnected()){
             cleanKmls();
-            stopOrbit();
             deleteLogo();
+            stopOrbit();
         }
     }
     private String createKml(Terrains terrains){
@@ -299,13 +298,13 @@ public class LgConnection {
                 "        <overlayXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                 "        <screenXY x=\"0.02\" y=\"0.95\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                 "        <rotationXY x=\"0\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                "        <size x=\"0.4\" y=\"0.6\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                "        <size x=\"0.4\" y=\"0.3\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                 "        </ScreenOverlay>\n" +
                 "        </Folder>\n" +
                 "    </Document>\n" +
                 "  </kml>";
         if (session.isConnected()) {
-            String command= "echo '"+logo+"' > /var/www/html/kml/slave_1.kml";
+            String command= "echo '"+logo+"' > /var/www/html/kml/slave_4.kml";
             Channel channel = session.openChannel("exec");
             ((ChannelExec) channel).setCommand(command);
             channel.setInputStream(null);
@@ -315,7 +314,12 @@ public class LgConnection {
     }
     private void deleteLogo() throws JSchException, IOException {
         if (session.isConnected()){
-            sendCommand("echo '' > /var/www/html/kml/slave_5.kml");
+            String command = "echo 'hola' > /var/www/html/kml/slave_4.kml";
+            Channel channel = session.openChannel("exec");
+            ((ChannelExec) channel).setCommand(command);
+            channel.setInputStream(null);
+            ((ChannelExec) channel).setErrStream(System.err);
+            channel.connect();
         }
     }
     private void generate_ballon(Terrains terrain) throws JSchException, IOException {
