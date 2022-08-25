@@ -1,13 +1,19 @@
 package com.example.cropdoc;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Build;
 import android.os.StrictMode;
+import android.util.Base64;
 
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.jcraft.jsch.*;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -17,6 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+
+
 public class LgConnection {
     static String user;
     static String password;
@@ -24,6 +32,11 @@ public class LgConnection {
     static int port;
     JSch jsch;
     Session session;
+    String emptyKml = "<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n" +
+            "         \"<kml xmlns=\\\"http://www.opengis.net/kml/2.2\\\" xmlns:gx=\\\"http://www.google.com/kml/ext/2.2\\\" xmlns:kml=\\\"http://www.opengis.net/kml/2.2\\\" xmlns:atom=\\\"http://www.w3.org/2005/Atom\\\">\\n" +
+            "         \"  <Document id=\\\"1\\\">\\n" +
+            "         \"  </Document>\\n" +
+            "         \"</kml>' >";
     public LgConnection(String user,String password,String host, int port){
         LgConnection.host =host;
         LgConnection.port =port;
@@ -186,7 +199,7 @@ public class LgConnection {
         if (session.isConnected()){
             String ola = "hola";
             sendCommand("> /var/www/html/kmls.txt");
-            sendCommand("echo '"+ola+"' > /var/www/html/kml/slave_3.kml");
+            sendCommand("echo '"+emptyKml+"' > /var/www/html/kml/slave_3.kml");
         }
     }
     public void cleanAll() throws JSchException, IOException {
@@ -314,16 +327,12 @@ public class LgConnection {
     }
     private void deleteLogo() throws JSchException, IOException {
         if (session.isConnected()){
-            String command = "echo 'hola' > /var/www/html/kml/slave_4.kml";
-            Channel channel = session.openChannel("exec");
-            ((ChannelExec) channel).setCommand(command);
-            channel.setInputStream(null);
-            ((ChannelExec) channel).setErrStream(System.err);
-            channel.connect();
+            sendCommand("echo '"+emptyKml+"' > /var/www/html/kml/slave_4.kml");
         }
     }
     private void generate_ballon(Terrains terrain) throws JSchException, IOException {
         String des = generateDesc(terrain);
+        String fulla = "https://i.imgur.com/rC2BTfu.jpeg";
         String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
                 "<Document>\n" +
@@ -344,6 +353,11 @@ public class LgConnection {
                 "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png\n" +
                 "-->\n" +
                 "<table width=\"400\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/rC2BTfu.jpeg\" alt=\"picture\" width=\"450\" height=\"300\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
                 " <tr>\n" +
                 "   <td colspan=\"2\" align=\"center\">\n" +
                 "     <h2><font color='#00CC99'>"+terrain.name+"</font></h2>\n" +
@@ -390,7 +404,6 @@ public class LgConnection {
         s += trees;
         return s;
     }
-
 }
 
 
