@@ -288,18 +288,18 @@ public class LgConnection {
         String logo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "  <kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
                 "    <Document>\n" +
-                "      <name>Ras-logos</name>\n" +
+                "      <name>GuillemLogos</name>\n" +
                 "        <Folder>\n" +
                 "        <name>Logos</name>\n" +
                 "        <ScreenOverlay>\n" +
                 "        <name>Logo</name>\n" +
                 "        <Icon>\n" +
-                "        <href>https://imgur.com/a/vwEMBFr</href>\n" +
+                "        <href>https://i.imgur.com/Gq9XanT.png</href>\n" +
                 "        </Icon>\n" +
                 "        <overlayXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                 "        <screenXY x=\"0.02\" y=\"0.95\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                 "        <rotationXY x=\"0\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
-                "        <size x=\"0.4\" y=\"0.2\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
+                "        <size x=\"0.4\" y=\"0.6\" xunits=\"fraction\" yunits=\"fraction\"/>\n" +
                 "        </ScreenOverlay>\n" +
                 "        </Folder>\n" +
                 "    </Document>\n" +
