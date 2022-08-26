@@ -13,40 +13,38 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/resetMarkers"
-        android:layout_width="184dp"
-        android:layout_height="wrap_content"
+        android:layout_width="167dp"
+        android:layout_height="46dp"
         android:layout_gravity="left"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="683dp"
         android:text="@string/reset_markers"
-        app:layout_constraintBottom_toBottomOf="@+id/mapTerrain"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.978"
         tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/saveterrain"
-        android:layout_width="189dp"
-        android:layout_height="wrap_content"
+        android:layout_width="153dp"
+        android:layout_height="45dp"
         android:layout_gravity="right"
         android:text="@string/save_terrain"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTerrain"
+        app:layout_constraintBottom_toBottomOf="@+id/mapTerrain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/resetMarkers"
+        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.976"
         tools:ignore="TextContrastCheck" />
 
     <EditText
@@ -64,7 +62,7 @@
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.878" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
