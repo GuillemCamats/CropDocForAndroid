@@ -39,13 +39,13 @@ public class LgConnection {
     static String host;
     static int port;
     JSch jsch;
-    TerrainToKml context = null;
     Session session;
-    String emptyKml = "<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n" +
-            "         \"<kml xmlns=\\\"http://www.opengis.net/kml/2.2\\\" xmlns:gx=\\\"http://www.google.com/kml/ext/2.2\\\" xmlns:kml=\\\"http://www.opengis.net/kml/2.2\\\" xmlns:atom=\\\"http://www.w3.org/2005/Atom\\\">\\n" +
-            "         \"  <Document id=\\\"1\\\">\\n" +
-            "         \"  </Document>\\n" +
-            "         \"</kml>' >";
+    String emptyKml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+            "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
+            "<Document>\n" +
+            "\t<name>clean</name>\n" +
+            "</Document>\n" +
+            "</kml>";
     public LgConnection(String user,String password,String host, int port){
         LgConnection.host =host;
         LgConnection.port =port;
@@ -56,7 +56,6 @@ public class LgConnection {
 
     public void connectD(TerrainToKml con){
         try {
-            context = con;
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             jsch = new JSch();
@@ -207,7 +206,6 @@ public class LgConnection {
     }
     public void cleanKmls() throws JSchException, IOException {
         if (session.isConnected()){
-            String ola = "hola";
             sendCommand("> /var/www/html/kmls.txt");
             sendCommand("echo '"+emptyKml+"' > /var/www/html/kml/slave_3.kml");
         }
@@ -217,6 +215,11 @@ public class LgConnection {
             cleanKmls();
             deleteLogo();
             stopOrbit();
+        }
+    }
+    private void deleteLogo() throws JSchException, IOException {
+        if (session.isConnected()){
+            sendCommand("echo '"+emptyKml+"' > /var/www/html/kml/slave_4.kml");
         }
     }
     private String createKml(Terrains terrains){
@@ -335,15 +338,8 @@ public class LgConnection {
             channel.connect();
         }
     }
-    private void deleteLogo() throws JSchException, IOException {
-        if (session.isConnected()){
-            sendCommand("echo '"+emptyKml+"' > /var/www/html/kml/slave_4.kml");
-        }
-    }
     private void generate_ballon(Terrains terrain) throws JSchException, IOException {
         String des = generateDesc(terrain);
-        File f = files(terrain.trees.get(0).foto);
-        System.out.println(f);
         String fulla = "https://i.imgur.com/rC2BTfu.jpeg";
         String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
@@ -416,14 +412,9 @@ public class LgConnection {
         s += trees;
         return s;
     }
-    public File files(String data) throws IOException {
-        File file = new File("sample.png");
-        FileWriter f = new FileWriter("filename.txt");
 
-        f.write(data);
-        f.close();
-        return file;
-    }
 }
+
+
 
 
