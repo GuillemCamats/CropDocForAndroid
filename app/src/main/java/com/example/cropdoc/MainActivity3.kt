@@ -17,8 +17,10 @@ class MainActivity3 : AppCompatActivity() {
     lateinit var reboot :Button
     lateinit var relaunch :Button
     lateinit var connect :Button
+    lateinit var setRefresh :Button
+    lateinit var resetRefresh :Button
     lateinit var setIp :EditText
-    var lgConnection: LgConnection? = null
+    var lgUtils: LgUtils ?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
@@ -27,22 +29,30 @@ class MainActivity3 : AppCompatActivity() {
         relaunch = findViewById(R.id.relaunch)
         connect = findViewById(R.id.connect)
         setIp = findViewById(R.id.lg_ip_ac3)
-
+        setRefresh = findViewById(R.id.setRefresh)
+        resetRefresh = findViewById(R.id.resetR)
 
         connect.setOnClickListener{
             if (!setIp.text.toString().equals(null)){
-                lgConnection = LgConnection("lg","lqgalaxy",setIp.text.toString(),22)
+                lgUtils = LgUtils("lg","lqgalaxy",setIp.text.toString(),22)
                 //lgConnection!!.connectD()
             }
         }
         relaunch.setOnClickListener{
-            lgConnection?.sendCommand("/home/lg/bin/lg-relaunch > /home/lg/log.txt")
+            lgUtils?.relaunch()
         }
         reboot.setOnClickListener{
-            lgConnection?.sendCommand("/home/lg/bin/lg-reboot > /home/lg/log.txt")
+            lgUtils?.reboot()
         }
         shutdown.setOnClickListener{
-            lgConnection?.sendCommand("/home/lg/bin/lg-poweroff > /home/lg/log.txt")
+            lgUtils?.shutdow()
         }
+        setRefresh.setOnClickListener {
+            lgUtils?.setRefresh()
+        }
+        resetRefresh.setOnClickListener {
+            lgUtils?.resetRefresh()
+        }
+
     }
 }

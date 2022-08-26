@@ -1,34 +1,14 @@
 package com.example.cropdoc;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Build;
 import android.os.StrictMode;
-import android.provider.MediaStore;
-import android.util.Base64;
-import android.view.View;
-
 import androidx.annotation.RequiresApi;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.jcraft.jsch.*;
-
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
