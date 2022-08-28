@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.cropdoc">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -23,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CropDoc"
         tools:targetApi="31">
+        <activity
+            android:name=".DemosActivity"
+            android:exported="false" />
         <activity
             android:name=".About"
             android:exported="false" />

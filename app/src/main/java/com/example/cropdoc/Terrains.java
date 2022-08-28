@@ -14,7 +14,7 @@ public class Terrains implements Serializable {
     public final String name;
 
     public static List<Terrains> terrainsList = new ArrayList<>();
-
+    public static List<Terrains> demosList = new ArrayList<>();
 
     public Terrains(String name, List<LatLng> terrain, List<Locations> trees){
         this.terrain=terrain;

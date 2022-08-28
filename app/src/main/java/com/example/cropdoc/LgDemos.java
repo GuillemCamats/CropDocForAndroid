@@ -2,18 +2,25 @@ package com.example.cropdoc;
 
 import android.os.Build;
 import android.os.StrictMode;
+
 import androidx.annotation.RequiresApi;
+
 import com.google.android.gms.maps.model.LatLng;
-import com.jcraft.jsch.*;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpException;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.concurrent.TimeUnit;
 
-
-
-public class LgConnection {
+public class LgDemos {
     static String user;
     static String password;
     static String host;
@@ -26,12 +33,13 @@ public class LgConnection {
             "\t<name>clean</name>\n" +
             "</Document>\n" +
             "</kml>";
-    public LgConnection(String user,String password,String host, int port){
-        LgConnection.host =host;
-        LgConnection.port =port;
-        LgConnection.password=password;
-        LgConnection.user=user;
+    public LgDemos(String user,String password,String host, int port){
+        com.example.cropdoc.LgConnection.host =host;
+        com.example.cropdoc.LgConnection.port =port;
+        com.example.cropdoc.LgConnection.password=password;
+        com.example.cropdoc.LgConnection.user=user;
     }
+
 
 
     public void connectD(TerrainToKml con){
@@ -73,7 +81,7 @@ public class LgConnection {
             String finalkml = createKml(terrain);
             String lat = String.valueOf(terrain.trees.get(0).coordinates.latitude);
             String lon = String.valueOf(terrain.trees.get(0).coordinates.longitude);
-            String lgdirection = "http://"+host+":81/kmls/kmlReader.kml"+"?id="+ZonedDateTime.now().toString();
+            String lgdirection = "http://"+host+":81/kmls/kmlReader.kml"+"?id="+ ZonedDateTime.now().toString();
             String remoteKml = "/var/www/html/kmls/kmlReader.kml";
             String remoteTxt = "/var/www/html/kmls.txt";
             Channel channel = session.openChannel("sftp");
@@ -98,7 +106,7 @@ public class LgConnection {
             channel.connect();
         }
     }
-    
+
     public void sendFylTo(String lat,String lon,String altitude,String heading,String tilt,String  pRange,String duration) throws JSchException{
         String kml = "<LookAt>" +
                 "<longitude>" + lon + "</longitude>" +
@@ -395,5 +403,8 @@ public class LgConnection {
     }
 
 }
+
+
+
 
 

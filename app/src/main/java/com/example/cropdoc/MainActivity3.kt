@@ -1,14 +1,10 @@
 package com.example.cropdoc
 
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 
 
 class MainActivity3 : AppCompatActivity() {
