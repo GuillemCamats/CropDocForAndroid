@@ -106,7 +106,6 @@ public class LgDemos {
             channel.connect();
         }
     }
-
     public void sendFylTo(String lat,String lon,String altitude,String heading,String tilt,String  pRange,String duration) throws JSchException{
         String kml = "<LookAt>" +
                 "<longitude>" + lon + "</longitude>" +
