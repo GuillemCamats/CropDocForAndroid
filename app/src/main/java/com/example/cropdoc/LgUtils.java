@@ -53,7 +53,7 @@ public class LgUtils {
         String x = "0";
         String replace = "<href>##LG_PHPIFACE##kml\\/slave_"+x+".kml<\\/href>";
         String search = "<href>##LG_PHPIFACE##kml\\/slave"+x+".kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>";
-        String clear = "echo "+LgUtils.password+" | sudo -S sed -i \"s/"+search+"/"+replace+"/\" ~/kmkearth/kml/slave/myplaces.kml";
+        String clear = "echo "+LgUtils.password+" | sudo -S sed -i \"s/"+search+"/"+replace+"/\" ~/earth/kml/slave/myplaces.kml";
 
         for (int i = 2; i <= 5; i++) {
             String cmd = clear.replace(x,Integer.toString(i));
