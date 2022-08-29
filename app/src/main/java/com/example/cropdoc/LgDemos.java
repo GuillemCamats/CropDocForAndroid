@@ -34,15 +34,15 @@ public class LgDemos {
             "</Document>\n" +
             "</kml>";
     public LgDemos(String user,String password,String host, int port){
-        com.example.cropdoc.LgConnection.host =host;
-        com.example.cropdoc.LgConnection.port =port;
-        com.example.cropdoc.LgConnection.password=password;
-        com.example.cropdoc.LgConnection.user=user;
+        LgDemos.host =host;
+        LgDemos.port =port;
+        LgDemos.password=password;
+        LgDemos.user=user;
     }
 
 
 
-    public void connectD(TerrainToKml con){
+    public void connectD(){
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -76,7 +76,7 @@ public class LgDemos {
     public void sendKml(Terrains terrain) throws JSchException, SftpException, IOException {
         if(session.isConnected()){
 
-            generate_ballon(terrain);
+            chooseAndSendBallon(terrain);
             createKmlsRepo();
             String finalkml = createKml(terrain);
             String lat = String.valueOf(terrain.trees.get(0).coordinates.latitude);
@@ -89,7 +89,7 @@ public class LgDemos {
             ByteArrayInputStream in = new ByteArrayInputStream(finalkml.getBytes(StandardCharsets.UTF_8));
             ByteArrayInputStream in2 = new ByteArrayInputStream(lgdirection.getBytes(StandardCharsets.UTF_8));
             ChannelSftp channelSftp = (ChannelSftp) channel;
-            sendFylTo(lat,lon,"0","0","5","500","1.2");
+            sendFylTo(lat,lon,"0","0","5","1000","1.2");
             channelSftp.put(in, remoteKml);
             channelSftp.put(in2,remoteTxt);
 
@@ -327,9 +327,33 @@ public class LgDemos {
             channel.connect();
         }
     }
-    private void generate_ballon(Terrains terrain) throws JSchException, IOException {
-        String des = generateDesc(terrain);
-        String fulla = "https://i.imgur.com/rC2BTfu.jpeg";
+
+    public void chooseAndSendBallon(Terrains terrain) throws JSchException, IOException {
+        switch (terrain.name){
+            case "Spain-Catalonia":
+                ballonSpain(terrain);
+                break;
+            case "Japan-Hokkaido":
+                ballonJapan(terrain);
+                break;
+            case "USA-Seattle":
+                ballonUsa(terrain);
+                break;
+            case "New Zealand-Christchurch":
+                ballonZealand(terrain);
+                break;
+            case "Finland-Helsinki":
+                ballonFinland(terrain);
+                break;
+        }
+    }
+    // Scab: https://i.imgur.com/hzUT13t.jpeg
+    // Complex: https://i.imgur.com/7jVljQ7.jpeg
+    // Frog eye: https://i.imgur.com/7CWbW6q.jpeg
+    // Healty: https://i.imgur.com/7OT8sux.jpeg
+    // Powdery: https://i.imgur.com/yIzGF6Z.jpeg
+    // rust: https://i.imgur.com/cmnKUwI.jpeg
+    private void ballonSpain(Terrains terrain) throws JSchException, IOException {
         String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
                 "<Document>\n" +
@@ -350,12 +374,6 @@ public class LgDemos {
                 "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png\n" +
                 "-->\n" +
                 "<table width=\"400\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n" +
-                " <tr>\n" +
-                "   <td colspan=\"2\" align=\"center\">\n" +
-                "     <img src= \"https://i.imgur.com/rC2BTfu.jpeg\" alt=\"picture\" width=\"450\" height=\"300\" />\n" +
-                "   </td>\n" +
-                " </tr>\n"+
-                " <tr>\n" +
                 "   <td colspan=\"2\" align=\"center\">\n" +
                 "     <h2><font color='#00CC99'>"+terrain.name+"</font></h2>\n" +
                 "     <h3><font color='#00CC99'>Information of the terrain</font></h3>\n" +
@@ -363,9 +381,46 @@ public class LgDemos {
                 " </tr>\n" +
                 " <tr>\n" +
                 "   <td colspan=\"2\">\n" +
-                "     <p><font color=\"#3399CC\">Description: "+des+" \n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Healty | Accuracy: 0.98 \n" +
                 "   </td>\n" +
                 " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/7OT8sux.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Scab | Accuracy: 0.95 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/hzUT13t.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Powdery Mildew | Accuracy: 0.97 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/yIzGF6Z.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Rust | Accuracy: 0.93 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/cmnKUwI.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
                 "</table>]]></description>\n" +
                 "   <LookAt>\n" +
                 "     <longitude>"+terrain.terrain.get(0).longitude+"</longitude>\n" +
@@ -378,7 +433,7 @@ public class LgDemos {
                 "   <styleUrl>#purple_paddle</styleUrl>\n" +
                 "   <gx:balloonVisibility>1</gx:balloonVisibility>\n" +
                 "   <Point>\n" +
-                "     <coordinates>"+terrain.terrain.get(0).longitude+terrain.terrain.get(0).latitude+",0</coordinates>\n" +
+                "     <coordinates>"+terrain.terrain.get(0).latitude+terrain.terrain.get(0).longitude+",0</coordinates>\n" +
                 "   </Point>\n" +
                 " </Placemark>\n" +
                 "</Document>\n" +
@@ -388,20 +443,222 @@ public class LgDemos {
             sendCommand(command);
         }
     }
-    private String generateDesc(Terrains terrain){
-        int samplesNum = 0;
-        StringBuilder trees = new StringBuilder();
-        for (Locations elem: terrain.trees){
-            String name = elem.prediction.split("\\|")[0];
-            String pred = elem.prediction.split("\\|")[1];
-            trees.append(" It has a tree with ").append(name).append(" and with an acuracy of ").append(pred);
-            samplesNum += 1;
+    private void ballonJapan(Terrains terrain) throws JSchException, IOException {
+        String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
+                "<Document>\n" +
+                " <name>"+terrain.name+"</name>\n" +
+                " <Style id=\"purple_paddle\">\n" +
+                "   <BalloonStyle>\n" +
+                "     <text>$[description]</text>\n" +
+                "     <bgColor>ff1e1e1e</bgColor>\n" +
+                "   </BalloonStyle>\n" +
+                " </Style>\n" +
+                " <Placemark id=\"0A7ACC68BF23CB81B354\">\n" +
+                "   <name>"+terrain.name+"</name>\n" +
+                "   <Snippet maxLines=\"0\"></Snippet>\n" +
+                "   <description><![CDATA[<!-- BalloonStyle background color:\n" +
+                "ffffffff\n" +
+                "-->\n" +
+                "<!-- Icon URL:\n" +
+                "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png\n" +
+                "-->\n" +
+                "<table width=\"400\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <h2><font color='#00CC99'>"+terrain.name+"</font></h2>\n" +
+                "     <h3><font color='#00CC99'>Information of the terrain</font></h3>\n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Healty | Accuracy: 0.98 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/7OT8sux.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Scab | Accuracy: 0.95 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/hzUT13t.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Powdery Mildew | Accuracy: 0.97 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/yIzGF6Z.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Rust | Accuracy: 0.93 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/cmnKUwI.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Frog eye leaf spot | Accuracy: 0.9 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/7CWbW6q.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Complex | Accuracy: 0.85 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/7jVljQ7.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "</table>]]></description>\n" +
+                "   <LookAt>\n" +
+                "     <longitude>"+terrain.terrain.get(0).longitude+"</longitude>\n" +
+                "     <latitude>"+terrain.terrain.get(0).latitude+"</latitude>\n" +
+                "     <altitude>0</altitude>\n" +
+                "     <heading>0</heading>\n" +
+                "     <tilt>0</tilt>\n" +
+                "     <range>500</range>\n" +
+                "   </LookAt>\n" +
+                "   <styleUrl>#purple_paddle</styleUrl>\n" +
+                "   <gx:balloonVisibility>1</gx:balloonVisibility>\n" +
+                "   <Point>\n" +
+                "     <coordinates>"+terrain.terrain.get(0).latitude+terrain.terrain.get(0).longitude+",0</coordinates>\n" +
+                "   </Point>\n" +
+                " </Placemark>\n" +
+                "</Document>\n" +
+                "</kml>";
+        if (session.isConnected()) {
+            String command= "echo '"+s+"' > /var/www/html/kml/slave_3.kml";
+            sendCommand(command);
         }
-        String s = "This terrain contains a total of "+samplesNum+" trees, this are the condition of all the trees:";
-        s += trees;
-        return s;
     }
-
+    private void ballonUsa(Terrains terrains) throws JSchException, IOException {
+        ballonJapan(terrains);
+    }
+    private void ballonZealand(Terrains terrain) throws JSchException, IOException {
+        String s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n" +
+                "<Document>\n" +
+                " <name>"+terrain.name+"</name>\n" +
+                " <Style id=\"purple_paddle\">\n" +
+                "   <BalloonStyle>\n" +
+                "     <text>$[description]</text>\n" +
+                "     <bgColor>ff1e1e1e</bgColor>\n" +
+                "   </BalloonStyle>\n" +
+                " </Style>\n" +
+                " <Placemark id=\"0A7ACC68BF23CB81B354\">\n" +
+                "   <name>"+terrain.name+"</name>\n" +
+                "   <Snippet maxLines=\"0\"></Snippet>\n" +
+                "   <description><![CDATA[<!-- BalloonStyle background color:\n" +
+                "ffffffff\n" +
+                "-->\n" +
+                "<!-- Icon URL:\n" +
+                "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png\n" +
+                "-->\n" +
+                "<table width=\"400\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <h2><font color='#00CC99'>"+terrain.name+"</font></h2>\n" +
+                "     <h3><font color='#00CC99'>Information of the terrain</font></h3>\n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Healty | Accuracy: 0.98 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/7OT8sux.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Scab | Accuracy: 0.95 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/hzUT13t.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Powdery Mildew | Accuracy: 0.97 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/yIzGF6Z.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Rust | Accuracy: 0.93 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/cmnKUwI.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "   <td colspan=\"2\">\n" +
+                "     <p><font color=\"#3399CC\">Description: Type: Complex | Accuracy: 0.85 \n" +
+                "   </td>\n" +
+                " </tr>\n" +
+                " <tr>\n" +
+                "   <td colspan=\"2\" align=\"center\">\n" +
+                "     <img src= \"https://i.imgur.com/7jVljQ7.jpeg\" alt=\"picture\" width=\"300\" height=\"200\" />\n" +
+                "   </td>\n" +
+                " </tr>\n"+
+                " <tr>\n" +
+                "</table>]]></description>\n" +
+                "   <LookAt>\n" +
+                "     <longitude>"+terrain.terrain.get(0).longitude+"</longitude>\n" +
+                "     <latitude>"+terrain.terrain.get(0).latitude+"</latitude>\n" +
+                "     <altitude>0</altitude>\n" +
+                "     <heading>0</heading>\n" +
+                "     <tilt>0</tilt>\n" +
+                "     <range>500</range>\n" +
+                "   </LookAt>\n" +
+                "   <styleUrl>#purple_paddle</styleUrl>\n" +
+                "   <gx:balloonVisibility>1</gx:balloonVisibility>\n" +
+                "   <Point>\n" +
+                "     <coordinates>"+terrain.terrain.get(0).latitude+terrain.terrain.get(0).longitude+",0</coordinates>\n" +
+                "   </Point>\n" +
+                " </Placemark>\n" +
+                "</Document>\n" +
+                "</kml>";
+        if (session.isConnected()) {
+            String command= "echo '"+s+"' > /var/www/html/kml/slave_3.kml";
+            sendCommand(command);
+        }
+    }
+    private void ballonFinland(Terrains terrains) throws JSchException, IOException {
+        ballonJapan(terrains);
+    }
 }
 
 

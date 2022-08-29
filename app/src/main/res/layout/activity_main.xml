@@ -39,10 +39,9 @@
         android:text="@string/send_kmls"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/connectLg"
-        app:layout_constraintVertical_bias="0.221" />
+        app:layout_constraintVertical_bias="0.218" />
 
     <Button
         android:id="@+id/about"
@@ -54,6 +53,16 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kmlsIni"
-        app:layout_constraintVertical_bias="0.326" />
+        app:layout_constraintVertical_bias="0.706" />
+
+    <Button
+        android:id="@+id/demosKml"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_demos"
+        app:layout_constraintBottom_toTopOf="@+id/about"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kmlsIni" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

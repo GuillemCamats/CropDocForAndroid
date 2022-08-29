@@ -38,6 +38,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, About::class.java)
             startActivity(intent)
         }
+        val demos = findViewById<Button>(R.id.demosKml)
+        demos.setOnClickListener {
+            val intent = Intent(this, DemosActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun parseToObj(){

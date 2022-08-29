@@ -30,4 +30,13 @@ public class Terrains implements Serializable {
         }
         return names;
     }
+    public static HashMap<String, Integer> getTerrainsListNamesDemos(){
+        HashMap<String, Integer> names = new HashMap<>();
+        int i = 0;
+        for(Terrains terrain: demosList){
+            names.put(terrain.name,i);
+            i+=1;
+        }
+        return names;
+    }
 }

@@ -10,8 +10,8 @@
 
     <ListView
         android:id="@+id/terrainsList"
-        android:layout_width="409dp"
-        android:layout_height="621dp"
+        android:layout_width="348dp"
+        android:layout_height="597dp"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="11sp"
