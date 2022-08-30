@@ -1,5 +1,7 @@
 package com.example.cropdoc;
 
+import android.os.StrictMode;
+
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
@@ -22,11 +24,29 @@ public class LgUtils {
         LgUtils.password = password;
         LgUtils.user = user;
     }
+    public void connectD(){
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            jsch = new JSch();
+            session = jsch.getSession(user, host, port);
+            session.setPassword(password);
+            java.util.Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");
+            session.setConfig(config);
+            System.out.println("Establishing Connection...");
+            session.setTimeout(Integer.MAX_VALUE);
+            session.connect();
+            System.out.println("Connected");
+        } catch (JSchException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setRefresh(){
         String x = "0";
-        String search = "<href>##LG_PHPIFACE##kml\\/slave_"+x+".kml<\\/href>";
-        String replace = "<href>##LG_PHPIFACE##kml\\/slave"+x+".kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>";
+        String search = "<href>##LG_PHPIFACE##kml/slave_"+x+".kml</href>";
+        String replace = "<href>##LG_PHPIFACE##kml/slave"+x+".kml</href><refreshMode>onInterval</refreshMode><refreshInterval>2</refreshInterval>";
 
         String command = "echo "+LgUtils.password+" | sudo -S sed -i \"s/"+search+"/"+replace+"/\" ~/earth/kml/slave/myplaces.kml";
         String clear = "echo "+LgUtils.password+" | sudo -S sed -i \"s/"+replace+"/"+search+"/\" ~/earth/kml/slave/myplaces.kml";
@@ -51,8 +71,8 @@ public class LgUtils {
 
     public void resetRefresh(){
         String x = "0";
-        String replace = "<href>##LG_PHPIFACE##kml\\/slave_"+x+".kml<\\/href>";
-        String search = "<href>##LG_PHPIFACE##kml\\/slave"+x+".kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>";
+        String replace = "<href>##LG_PHPIFACE##kml/slave_"+x+".kml</href>";
+        String search = "<href>##LG_PHPIFACE##kml/slave"+x+".kml</href><refreshMode>onInterval</refreshMode><refreshInterval>2</refreshInterval>";
         String clear = "echo "+LgUtils.password+" | sudo -S sed -i \"s/"+search+"/"+replace+"/\" ~/earth/kml/slave/myplaces.kml";
 
         for (int i = 2; i <= 5; i++) {
@@ -101,9 +121,9 @@ public class LgUtils {
                         "  exit 1 " +
                         "fi " +
                         "if  [[ \\\\\\$(service \\\\\\$SERVICE status) =~ 'stop' ]]; then " +
-                        "  echo $pw | sudo -S service \\\\\\${SERVICE} start " +
+                        "  echo "+LgUtils.password+" | sudo -S service \\\\\\${SERVICE} start " +
                         "else " +
-                        "  echo $pw | sudo -S service \\\\\\${SERVICE} restart " +
+                        "  echo "+LgUtils.password+" | sudo -S service \\\\\\${SERVICE} restart " +
                         "fi " +
                         "\" && sshpass -p "+LgUtils.password+" ssh -x -t lg@lg"+i+" \"\\$RELAUNCH_CMD\"";
                 sendCommand("'/home/$user/bin/lg-relaunch' > /home/$user/log.txt");

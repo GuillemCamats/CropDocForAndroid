@@ -31,7 +31,7 @@ class MainActivity3 : AppCompatActivity() {
         connect.setOnClickListener{
             if (!setIp.text.toString().equals(null)){
                 lgUtils = LgUtils("lg","lqgalaxy",setIp.text.toString(),22)
-                //lgConnection!!.connectD()
+                lgUtils!!.connectD()
             }
         }
         relaunch.setOnClickListener{
