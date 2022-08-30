@@ -4,6 +4,7 @@ package com.example.cropdoc
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -35,19 +36,80 @@ class MainActivity3 : AppCompatActivity() {
             }
         }
         relaunch.setOnClickListener{
-            lgUtils?.relaunch()
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure you want to Relaunch?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, id ->
+                    // Delete selected note from database
+                    lgUtils?.relaunch()
+                }
+                .setNegativeButton("No") { dialog, id ->
+                    // Dismiss the dialog
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
         }
         reboot.setOnClickListener{
-            lgUtils?.reboot()
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure you want to Reboot?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, id ->
+                    // Delete selected note from database
+                    lgUtils?.setRefresh()
+                }
+                .setNegativeButton("No") { dialog, id ->
+                    // Dismiss the dialog
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
         }
         shutdown.setOnClickListener{
-            lgUtils?.shutdow()
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure you want to Shutdown?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, id ->
+                    // Delete selected note from database
+                    lgUtils?.shutdow()
+                }
+                .setNegativeButton("No") { dialog, id ->
+                    // Dismiss the dialog
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
         }
         setRefresh.setOnClickListener {
-            lgUtils?.setRefresh()
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure you want to setRefresh?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, id ->
+                    // Delete selected note from database
+                    lgUtils?.setRefresh()
+                }
+                .setNegativeButton("No") { dialog, id ->
+                    // Dismiss the dialog
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
+
         }
         resetRefresh.setOnClickListener {
-            lgUtils?.resetRefresh()
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure you want to resetRefresh?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, id ->
+                    // Delete selected note from database
+                    lgUtils?.resetRefresh()
+                }
+                .setNegativeButton("No") { dialog, id ->
+                    // Dismiss the dialog
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
         }
 
     }
