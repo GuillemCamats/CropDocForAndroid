@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B6DDC8"
-    tools:context=".About">
+    tools:context="com.galaxy.cropdoc.About">
 
     <LinearLayout
         android:layout_width="match_parent"

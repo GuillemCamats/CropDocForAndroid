@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.galaxy.cropdoc.MainActivity">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapTerrain"
@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/resetMarkers"
-        android:layout_width="167dp"
-        android:layout_height="46dp"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
         android:layout_gravity="left"
         android:text="@string/reset_markers"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,8 +35,8 @@
 
     <Button
         android:id="@+id/saveterrain"
-        android:layout_width="153dp"
-        android:layout_height="45dp"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
         android:layout_gravity="right"
         android:text="@string/save_terrain"
         app:layout_constraintBottom_toBottomOf="@+id/mapTerrain"

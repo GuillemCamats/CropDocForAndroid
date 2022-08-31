@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".SharedApp"
+        android:name="com.galaxy.cropdoc.SharedApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,19 +24,19 @@
         android:theme="@style/Theme.CropDoc"
         tools:targetApi="31">
         <activity
-            android:name=".DemosActivity"
+            android:name="com.galaxy.cropdoc.DemosActivity"
             android:exported="false" />
         <activity
-            android:name=".About"
+            android:name="com.galaxy.cropdoc.About"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.galaxy.cropdoc.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".TerrainToKml"
+            android:name="com.galaxy.cropdoc.TerrainToKml"
             android:exported="false" />
         <activity
-            android:name=".SelectTerrainActivity"
+            android:name="com.galaxy.cropdoc.SelectTerrainActivity"
             android:exported="false" />
 
         <meta-data
@@ -44,32 +44,32 @@
             android:value="${GOOGLE_MAPS_API_KEY}" />
 
         <activity
-            android:name=".MapsActivityTerrain"
+            android:name="com.galaxy.cropdoc.MapsActivityTerrain"
             android:exported="false"
             android:label="@string/title_activity_maps_terrain" />
         <activity
-            android:name=".MapsActivity"
+            android:name="com.galaxy.cropdoc.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".SetIpToConn"
+            android:name="com.galaxy.cropdoc.SetIpToConn"
             android:exported="false" />
         <activity
-            android:name=".MainActivity4"
+            android:name="com.galaxy.cropdoc.MainActivity4"
             android:exported="false"
             android:label="@string/title_activity_main4"
             android:theme="@style/Theme.CropDoc.NoActionBar" />
         <activity
-            android:name=".MainActivity3"
+            android:name="com.galaxy.cropdoc.MainActivity3"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name="com.galaxy.cropdoc.MainActivity2"
             android:exported="false"
             android:label="@string/title_activity_main2"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.galaxy.cropdoc.MainActivity"
             android:theme="@style/Theme.CropDoc.NoActionBar" />
         <activity
-            android:name=".StartScreen"
+            android:name="com.galaxy.cropdoc.StartScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
