@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

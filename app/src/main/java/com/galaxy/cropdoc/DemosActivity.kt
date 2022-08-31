@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.graphics.Color
 import android.os.Build
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import com.example.cropdoc.R
 import com.google.android.gms.maps.model.LatLng
 
 class DemosActivity : AppCompatActivity(), AdapterView.OnItemClickListener {

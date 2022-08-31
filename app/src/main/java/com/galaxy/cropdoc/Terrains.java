@@ -1,7 +1,6 @@
-package com.example.cropdoc;
+package com.galaxy.cropdoc;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 
 import java.io.Serializable;
 import java.util.ArrayList;

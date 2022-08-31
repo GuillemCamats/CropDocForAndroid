@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B6DDC8"
-    tools:context=".StartScreen">
+    tools:context="com.galaxy.cropdoc.StartScreen">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -23,14 +23,14 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="336dp"
-        android:layout_height="502dp"
+        android:layout_width="400dp"
+        android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93"
-        app:srcCompat="@drawable/logofinalkmls" />
+        app:layout_constraintVertical_bias="0.954"
+        app:srcCompat="@drawable/logofinalkmls__2_" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

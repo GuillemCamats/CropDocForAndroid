@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.cropdoc.R
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.*
@@ -47,8 +48,8 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
             if(markers!=null && !nameT.text.toString().equals(null)){
                 val terrains = Terrains(nameT.text.toString(),markers,null)
                 Terrains.terrainsList.add(terrains)
-                Log.d("terr",Terrains.terrainsList.toString())
-                val intent = Intent(this,SelectTerrainActivity::class.java)
+                Log.d("terr", Terrains.terrainsList.toString())
+                val intent = Intent(this, SelectTerrainActivity::class.java)
                 intent.putExtra("bitmap",foto)
                 intent.putExtra("pred",prediction)
                 startActivity(intent)

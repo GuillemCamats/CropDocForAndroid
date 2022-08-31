@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B6DDC8"
-    tools:context=".MainActivity">
+    tools:context="com.galaxy.cropdoc.MainActivity">
 
 
     <Button
         android:id="@+id/fotoCrop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
         android:text="@string/nom_boto_foto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,8 @@
 
     <Button
         android:id="@+id/connectLg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
         android:text="@string/connect_to_lg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,19 +34,20 @@
 
     <Button
         android:id="@+id/kmlsIni"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
         android:text="@string/send_kmls"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/connectLg"
-        app:layout_constraintVertical_bias="0.218" />
+        app:layout_constraintVertical_bias="0.122" />
 
     <Button
         android:id="@+id/about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
         android:text="@string/about"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,8 +58,8 @@
 
     <Button
         android:id="@+id/demosKml"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
         android:text="@string/send_demos"
         app:layout_constraintBottom_toTopOf="@+id/about"
         app:layout_constraintEnd_toEndOf="parent"

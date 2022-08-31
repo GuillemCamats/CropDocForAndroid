@@ -1,10 +1,11 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cropdoc.R
 
 
 class StartScreen : AppCompatActivity() {
@@ -18,13 +19,13 @@ class StartScreen : AppCompatActivity() {
 
         pantalla.alpha = 0f
         pantalla.animate()?.setDuration(3000)?.alpha(1f)?.withEndAction{
-            val i=Intent(this,MainActivity :: class.java)
+            val i=Intent(this, MainActivity :: class.java)
             startActivity(i)
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
         }
         logo2.alpha = 0f
         logo2.animate()?.setDuration(3000)?.alpha(1f)?.withEndAction{
-            val i=Intent(this,MainActivity :: class.java)
+            val i=Intent(this, MainActivity :: class.java)
             startActivity(i)
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
         }

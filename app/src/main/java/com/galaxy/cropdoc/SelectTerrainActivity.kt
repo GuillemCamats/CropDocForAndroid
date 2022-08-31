@@ -1,11 +1,11 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
+import com.example.cropdoc.R
 
 
 class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
@@ -43,14 +43,14 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
         list.onItemClickListener = this
 
         createTerrain.setOnClickListener{
-            val intent = Intent(this,MapsActivityTerrain::class.java)
+            val intent = Intent(this, MapsActivityTerrain::class.java)
             intent.putExtra("pred",prediction)
             intent.putExtra("bitmap",foto.toString())
             startActivity(intent)
         }
         selectTerrain.setOnClickListener {
             if(terrainName!=null){
-                val intent = Intent(this,MapsActivity::class.java)
+                val intent = Intent(this, MapsActivity::class.java)
                 intent.putExtra("name", terrainName)
                 intent.putExtra("pos", Terrains.getTerrainsListNames()[terrainName].toString())
                 intent.putExtra("pred",prediction)

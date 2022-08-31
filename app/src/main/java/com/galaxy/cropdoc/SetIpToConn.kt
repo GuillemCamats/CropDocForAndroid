@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.app.Activity
 import android.content.Intent
@@ -7,9 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import com.example.cropdoc.R
 
 class SetIpToConn : AppCompatActivity() {
-    var main3: MainActivity3 ?= null
+    var main3: MainActivity3?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_ip_to_conn)

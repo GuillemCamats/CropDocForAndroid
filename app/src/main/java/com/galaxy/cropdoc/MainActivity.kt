@@ -1,10 +1,10 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cropdoc.R
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {

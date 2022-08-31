@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 
 import android.content.Context
@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import com.example.cropdoc.R
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 

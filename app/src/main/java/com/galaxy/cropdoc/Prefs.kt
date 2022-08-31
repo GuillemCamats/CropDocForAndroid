@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.content.Context
 import android.content.SharedPreferences

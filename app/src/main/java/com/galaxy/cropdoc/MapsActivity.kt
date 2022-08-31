@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.cropdoc.R
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -54,9 +55,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
                         loc = terrain.trees as ArrayList<Locations>
                         loc.add(locations)
                     }
-                    Terrains.terrainsList.set(index.toInt(),Terrains(tName,tTerrain,loc))
+                    Terrains.terrainsList.set(index.toInt(), Terrains(tName,tTerrain,loc))
                 }
-                Log.d("shape",Terrains.terrainsList.toString())
+                Log.d("shape", Terrains.terrainsList.toString())
                 val gson = Gson()
                 val json = gson.toJson(Terrains.terrainsList)
                 SharedApp.prefs.name = json// passa la dada de objecte a dins de pointlist despres de tancar la app

@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.app.Activity
 import android.content.Intent
@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cropdoc.R
 import com.example.cropdoc.databinding.ActivityMain2Binding
 import com.example.cropdoc.ml.LiteModelDiseaseClassification1
 import org.tensorflow.lite.support.image.TensorImage

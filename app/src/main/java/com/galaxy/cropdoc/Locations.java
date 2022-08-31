@@ -1,6 +1,5 @@
-package com.example.cropdoc;
+package com.galaxy.cropdoc;
 
-import android.graphics.Bitmap;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;

@@ -1,15 +1,13 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
+import com.example.cropdoc.R
 
 class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
     lateinit var setIpToConn: EditText

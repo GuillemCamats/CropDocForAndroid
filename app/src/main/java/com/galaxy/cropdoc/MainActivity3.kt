@@ -1,4 +1,4 @@
-package com.example.cropdoc
+package com.galaxy.cropdoc
 
 
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cropdoc.R
 
 
 class MainActivity3 : AppCompatActivity() {
@@ -17,7 +18,7 @@ class MainActivity3 : AppCompatActivity() {
     lateinit var setRefresh :Button
     lateinit var resetRefresh :Button
     lateinit var setIp :EditText
-    var lgUtils: LgUtils ?=null
+    var lgUtils: LgUtils?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)

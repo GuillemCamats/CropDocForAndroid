@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B6DDC8"
-    tools:context=".SetIpToConn">
+    tools:context="com.galaxy.cropdoc.SetIpToConn">
 
     <EditText
         android:id="@+id/ip"
