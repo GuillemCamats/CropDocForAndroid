@@ -19,7 +19,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cropdoc.R
 import com.example.cropdoc.databinding.ActivityMain2Binding
 import com.example.cropdoc.ml.LiteModelDiseaseClassification1
+import com.example.cropdoc.ml.Effi85
+import com.example.cropdoc.ml.Mobile85
+import org.tensorflow.lite.Interpreter
+import org.tensorflow.lite.gpu.GpuDelegate
 import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.gpu.CompatibilityList
 import java.io.File
 
 
@@ -29,7 +34,6 @@ class MainActivity2 : AppCompatActivity(){
     var confirm: Button ?=null
     var data: Uri ?= null
     var text: TextView ?= null
-    lateinit var takePicture: Button
     private var bitmap: Bitmap ?= null
     var prediction: String ?= null
     var f: File? = null
@@ -52,7 +56,7 @@ class MainActivity2 : AppCompatActivity(){
         }
 
         confirm?.setOnClickListener {
-            val model = LiteModelDiseaseClassification1.newInstance(this)
+            val model = Mobile85.newInstance(this)
             text = findViewById(R.id.textView)
 
             bitmap = bitmap?.copy(Bitmap.Config.ARGB_8888, true)
@@ -88,12 +92,13 @@ class MainActivity2 : AppCompatActivity(){
 
     fun stringSelector(s: String): String {
 
-        val typeplant = s.drop(15)
+        Log.d("s",s)
+        val typeplant = s.drop(11)
 
         val parts = typeplant.split("(", ")", "\"", "=")
-
-        val tipo = parts[0]
-        val score = parts[6]
+        Log.d("s",parts.toString())
+        val tipo = parts[1]
+        val score = parts[7]
 
         return "Type: $tipo | Accuracy: $score"
     }

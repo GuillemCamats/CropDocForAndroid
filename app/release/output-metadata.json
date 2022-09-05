@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.cropdoc",
+  "applicationId": "com.galaxy.cropdoc",
   "variantName": "release",
   "elements": [
     {
