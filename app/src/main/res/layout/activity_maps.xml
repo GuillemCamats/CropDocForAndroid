@@ -15,6 +15,8 @@
     <Button
         android:id="@+id/addMarker"
         android:layout_gravity="center_horizontal"
+        android:backgroundTint="#43C15A"
+        android:textColor="#030303"
         android:layout_width="160dp"
         android:layout_height="70dp"
         android:text="@string/add_marker" />

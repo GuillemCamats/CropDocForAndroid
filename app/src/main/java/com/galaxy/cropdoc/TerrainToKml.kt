@@ -57,6 +57,7 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
             if (!setIpToConn.text.toString().equals(null)){
                 lgConnection = LgConnection("lg","lqgalaxy",setIpToConn.text.toString(),22)
                 lgConnection!!.connectD(this)
+                connect.setBackgroundColor(Color.GREEN)
             }
         }
 

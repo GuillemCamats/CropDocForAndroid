@@ -21,30 +21,30 @@
 
     <Button
         android:id="@+id/resetMarkers"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
+        android:layout_width="140dp"
+        android:layout_height="73dp"
         android:layout_gravity="left"
         android:text="@string/reset_markers"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.978"
+        app:layout_constraintVertical_bias="0.987"
         tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/saveterrain"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
+        android:layout_width="140dp"
+        android:layout_height="73dp"
         android:layout_gravity="right"
         android:text="@string/save_terrain"
         app:layout_constraintBottom_toBottomOf="@+id/mapTerrain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintHorizontal_bias="0.808"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976"
+        app:layout_constraintVertical_bias="0.987"
         tools:ignore="TextContrastCheck" />
 
     <EditText

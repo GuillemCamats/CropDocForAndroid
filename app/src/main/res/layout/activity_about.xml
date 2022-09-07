@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B6DDC8"
+    android:background="#D9F4CA"
     tools:context="com.galaxy.cropdoc.About">
 
     <LinearLayout

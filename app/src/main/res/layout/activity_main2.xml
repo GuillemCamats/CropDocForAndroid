@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B6DDC8"
+    android:background="#D9F4CA"
     tools:context="com.galaxy.cropdoc.MainActivity2">
 
 
@@ -25,6 +25,8 @@
         android:layout_width="160dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
+        android:backgroundTint="#43C15A"
+        android:textColor="#030303"
         android:layout_weight="0"
         android:text="@string/nom_select_foto"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,6 +42,8 @@
         android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_marginEnd="4dp"
+        android:backgroundTint="#43C15A"
+        android:textColor="#030303"
         android:layout_weight="0"
         android:enabled="false"
         android:text="@string/confirm_picture"
@@ -68,6 +72,8 @@
         android:layout_width="160dp"
         android:layout_height="70dp"
         android:text="@string/location"
+        android:backgroundTint="#43C15A"
+        android:textColor="#030303"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

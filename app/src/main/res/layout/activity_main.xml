@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B6DDC8"
+    android:background="#D9F4CA"
     tools:context="com.galaxy.cropdoc.MainActivity">
 
 
     <Button
         android:id="@+id/fotoCrop"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
+        android:layout_width="330dp"
+        android:layout_height="62dp"
+        android:backgroundTint="#43C15A"
         android:text="@string/nom_boto_foto"
+        android:textColor="#030303"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,20 +24,24 @@
 
     <Button
         android:id="@+id/connectLg"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
+        android:layout_width="330dp"
+        android:layout_height="62dp"
+        android:backgroundTint="#43C15A"
+        android:textColor="#030303"
         android:text="@string/connect_to_lg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.373" />
+        app:layout_constraintVertical_bias="0.351" />
 
     <Button
         android:id="@+id/kmlsIni"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
+        android:layout_width="330dp"
+        android:layout_height="62dp"
+        android:backgroundTint="#43C15A"
+        android:textColor="#030303"
         android:text="@string/send_kmls"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,24 +52,30 @@
 
     <Button
         android:id="@+id/about"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
+        android:layout_width="330dp"
+        android:layout_height="62dp"
+        android:backgroundTint="#43C15A"
         android:text="@string/about"
+        android:textColor="#030303"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kmlsIni"
-        app:layout_constraintVertical_bias="0.706" />
+        app:layout_constraintVertical_bias="0.587" />
 
     <Button
         android:id="@+id/demosKml"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
+        android:layout_width="330dp"
+        android:layout_height="62dp"
+        android:backgroundTint="#43C15A"
         android:text="@string/send_demos"
+        android:textColor="#030303"
         app:layout_constraintBottom_toTopOf="@+id/about"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kmlsIni" />
+        app:layout_constraintTop_toBottomOf="@+id/kmlsIni"
+        app:layout_constraintVertical_bias="0.523" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

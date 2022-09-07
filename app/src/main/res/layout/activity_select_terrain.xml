@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B6DDC8"
+    android:background="#D9F4CA"
     tools:context="com.galaxy.cropdoc.SelectTerrainActivity">
 
 
@@ -12,14 +12,14 @@
         android:id="@+id/terrainsList"
         android:layout_width="348dp"
         android:layout_height="597dp"
+        android:layout_marginTop="132dp"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/selectTerrain"
@@ -28,6 +28,8 @@
         android:text="@string/select_terrain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#43C15A"
+        android:textColor="#030303"
         app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +39,8 @@
         android:id="@+id/createTerrain"
         android:layout_width="160dp"
         android:layout_height="70dp"
+        android:backgroundTint="#43C15A"
+        android:textColor="#030303"
         android:text="@string/create_terrain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
