@@ -12,7 +12,7 @@
 ### Step 1: Clone the repository
 The full code is located in this GitHub repository. To clone the project via terminal use:
 
-> git clone https://github.com/GuillemCamats/CropDocForAndroid
+` git clone https://github.com/GuillemCamats/CropDocForAndroid `
 
 ### Step 2: Set up Google Maps API Key
 
@@ -30,7 +30,7 @@ CropDoc uses [Google Maps Android API](https://developers.google.com/maps/docume
 
 With the key in hands, the next step is placing the key inside the app. Go to local.propieties and put this line at the end of the file.
 
-GOOGLE_MAPS_API_KEY="PLACE_HERE_YOUR_API_KEY"
+` GOOGLE_MAPS_API_KEY="PLACE_HERE_YOUR_API_KEY" `
 
 ### Contributing
 
