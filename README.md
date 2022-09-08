@@ -14,17 +14,17 @@ Dowload the apk from the [Playstore](https://play.google.com/store/apps/detailsi
 
 #### Analize photo Button
 
-When the user press this button in the main page of the app he is redirected to the page where the data is analized. By pressing the button load picture, the user loads a picture from galery. An then by pressing confirm picture, the machine learning model will analyze the picture and give an output prediction. 
+When the user presses this button on the main page of the app he is redirected to the page where the data is analyzed. By pressing the button loads picture, the user loads a picture from the gallery. An then by pressing confirm picture, the machine learning model will analyze the picture and give an output prediction.
 
-After this the user can create a location to store where is the tree that has been analized. 
+After this the user can save the location from where the tree had been analyzed. 
 
 #### Send Kmls Button
 
-When the user press this button he is redirected to the page where the locations saved. And from there the user can connect to the Liquid Galaxy and send the data thas has been created from the user. 
+When the user presses this button he is redirected to the page where the locations saved. And from there the user can connect to the Liquid Galaxy and send the data, thus has been created for the user. 
 
 #### Send Demos Button 
 
-It's the same that send kmls, but with precrated demos. 
+It's the same that send kmls, but with pre created demos. 
 
 
 ## Running from source
