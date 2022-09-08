@@ -1,5 +1,32 @@
 # CropDocForAndroid
 
+
+## Running with apk
+
+### Prerequisites
+- Android device
+
+### Dowload from Playstore
+
+Dowload the apk from the [Playstore](https://play.google.com/store/apps/detailsid=com.galaxy.cropdoc&hl=es_419&gl=US)
+
+### Using the app
+
+#### Analize photo Button
+
+When the user press this button in the main page of the app he is redirected to the page where the data is analized. By pressing the button load picture, the user loads a picture from galery. An then by pressing confirm picture, the machine learning model will analyze the picture and give an output prediction. 
+
+After this the user can create a location to store where is the tree that has been analized. 
+
+#### Send Kmls Button
+
+When the user press this button he is redirected to the page where the locations saved. And from there the user can connect to the Liquid Galaxy and send the data thas has been created from the user. 
+
+#### Send Demos Button 
+
+It's the same that send kmls, but with precrated demos. 
+
+
 ## Running from source
 
 ### Prerequisites
