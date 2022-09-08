@@ -11,7 +11,7 @@ The problem is solved through an android application with a machine learning mod
 
 ### Dowload from Playstore
 
-Dowload the apk from the [Playstore](https://play.google.com/store/apps/details?id=com.galaxy.cropdoc&hl=es)
+Dowload the apk from the [Playstore](https://play.google.com/store/apps/details?id=com.galaxy.cropdoc&hl=es) or search on the Playstore the name CropDoc.
 
 ### Using the app
 
