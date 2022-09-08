@@ -1,5 +1,8 @@
 # CropDocForAndroid
 
+CropDoc is an Android application to help companies or competent authorities and farmers to detect certain crop illnesses on the terrain and display the localization of the trees and terrains affected by the crop illness on the liquid galaxy to help them monitor the evolution of such illnesses throughout the territory. 
+
+The problem is solved through an android application with a machine learning model that detects the illness of the samples. After that the user can store the location of the sample. The coordinates can be displayed on the Liquid Galaxy to visualise all the data collected from the user.  
 
 ## Running with apk
 
