@@ -4,13 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,13 +18,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cropdoc.R
 import com.example.cropdoc.databinding.ActivityMain2Binding
-import com.example.cropdoc.ml.LiteModelDiseaseClassification1
-import com.example.cropdoc.ml.Effi85
 import com.example.cropdoc.ml.Mobile85
-import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.gpu.GpuDelegate
 import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.gpu.CompatibilityList
 import java.io.File
 
 
@@ -37,6 +32,7 @@ class MainActivity2 : AppCompatActivity(){
     private var bitmap: Bitmap ?= null
     var prediction: String ?= null
     var f: File? = null
+    lateinit var back: ImageButton
 
 
     @RequiresApi(Build.VERSION_CODES.P)
@@ -48,7 +44,10 @@ class MainActivity2 : AppCompatActivity(){
         val buttonClick = findViewById<Button>(R.id.buttonLoadPicture)
         confirm = findViewById(R.id.buttonConfirm)
         val location = findViewById<Button>(R.id.add_location)
-
+        back = findViewById(R.id.backButton)
+        back.setOnClickListener {
+            onBackPressed()
+        }
         buttonClick.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -28,6 +29,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
     private var addMarker: Button ?= null
     private val REQUEST_LOCATION_PERMISSION = 1
     lateinit var loc: ArrayList<Locations>
+    lateinit var back: ImageButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -36,6 +38,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
         mapView?.onResume()
         mapView?.getMapAsync(this)
         addMarker = findViewById(R.id.addMarker)
+        back = findViewById(R.id.imagemaps)
+        back.setOnClickListener {
+            onBackPressed()
+        }
         addMarker?.setOnClickListener{
             if(marker!=null){
                 val prediction = intent.getStringExtra("pred")

@@ -13,6 +13,7 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
     lateinit var createTerrain: Button
     lateinit var selectTerrain: Button
     var terrainName: String ?=null
+    lateinit var back:ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +22,12 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
         val foto = intent.getStringExtra("bitmap")
         createTerrain = findViewById(R.id.createTerrain)
         selectTerrain = findViewById(R.id.selectTerrain)
+        back = findViewById(R.id.imageButtonSel)
         val prediction = intent.getStringExtra("pred")
         val namesTerrains: ArrayList<String> = arrayListOf()
+        back.setOnClickListener {
+            onBackPressed()
+        }
         for (elem in Terrains.getTerrainsListNames()){
             namesTerrains.add(elem.key)
         }
@@ -36,7 +41,7 @@ class SelectTerrainActivity : AppCompatActivity(), AdapterView.OnItemClickListen
         }
 
 
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listitems)
+        val adapter = ArrayAdapter<String>(this, R.layout.layout_text_color, listitems)
         list.adapter = adapter
 
         list.choiceMode = ListView.CHOICE_MODE_SINGLE

@@ -14,7 +14,7 @@
         android:layout_height="597dp"
         android:layout_marginTop="132dp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="#030303"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -25,28 +25,40 @@
         android:id="@+id/selectTerrain"
         android:layout_width="160dp"
         android:layout_height="70dp"
+        android:backgroundTint="#43C15A"
         android:text="@string/select_terrain"
+        android:textColor="#030303"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="#43C15A"
-        android:textColor="#030303"
-        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.014" />
+        app:layout_constraintVertical_bias="0.074" />
 
     <Button
         android:id="@+id/createTerrain"
         android:layout_width="160dp"
         android:layout_height="70dp"
         android:backgroundTint="#43C15A"
-        android:textColor="#030303"
         android:text="@string/create_terrain"
+        android:textColor="#030303"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.186"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toEndOf="@+id/selectTerrain"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.014" />
+        app:layout_constraintVertical_bias="0.074" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

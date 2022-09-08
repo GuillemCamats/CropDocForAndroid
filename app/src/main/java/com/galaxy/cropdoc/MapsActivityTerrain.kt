@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.cropdoc.R
@@ -28,6 +29,8 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
     lateinit var nameT: EditText
     private var markers: MutableList<LatLng> ?= mutableListOf()
     private val REQUEST_LOCATION_PERMISSION = 1
+    lateinit var back:ImageButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps_terrain)
@@ -38,6 +41,10 @@ class MapsActivityTerrain :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.
         resetMarker = findViewById(R.id.resetMarkers)
         saveMarkers = findViewById(R.id.saveterrain)
         nameT = findViewById(R.id.editTextTerrain)
+        back = findViewById(R.id.mapsButton)
+        back.setOnClickListener {
+            onBackPressed()
+        }
         val foto = intent.getStringExtra("bitmap")
         val prediction = intent.getStringExtra("pred")
         resetMarker?.setOnClickListener{

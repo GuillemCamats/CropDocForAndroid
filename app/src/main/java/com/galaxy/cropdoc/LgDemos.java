@@ -61,6 +61,9 @@ public class LgDemos {
             e.printStackTrace();
         }
     }
+    public boolean isLgConnected(){
+        return session.isConnected();
+    }
     public void sendCommand(String command) throws JSchException, IOException {
         if(session.isConnected()){
             Channel channel = session.openChannel("exec");

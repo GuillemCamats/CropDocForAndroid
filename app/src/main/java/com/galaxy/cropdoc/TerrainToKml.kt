@@ -1,5 +1,6 @@
 package com.galaxy.cropdoc
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
     var lgConnection: LgConnection? = null
     var terrainName: String ?=null
 
+    @SuppressLint("ResourceType")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {// netejar kmls falte
         super.onCreate(savedInstanceState)
@@ -32,7 +34,6 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
         listKml = findViewById(R.id.list_kmls)
         connect.setBackgroundColor(Color.RED)
         deleteKmls =findViewById(R.id.delete)
-
 
         val namesTerrains: ArrayList<String> = arrayListOf()
         for (elem in Terrains.getTerrainsListNames()){
@@ -47,7 +48,7 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
             }
         }
 
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listitems)
+        val adapter = ArrayAdapter<String>(this, R.layout.layout_text_color, listitems)
         listKml.adapter = adapter
 
         listKml.choiceMode = ListView.CHOICE_MODE_SINGLE
@@ -57,6 +58,8 @@ class TerrainToKml : AppCompatActivity(), AdapterView.OnItemClickListener {
             if (!setIpToConn.text.toString().equals(null)){
                 lgConnection = LgConnection("lg","lqgalaxy",setIpToConn.text.toString(),22)
                 lgConnection!!.connectD(this)
+            }
+            if (lgConnection?.isLgConnected == true){
                 connect.setBackgroundColor(Color.GREEN)
             }
         }

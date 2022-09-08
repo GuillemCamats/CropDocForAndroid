@@ -117,7 +117,7 @@ class DemosActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             }
         }
 
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listitems)
+        val adapter = ArrayAdapter<String>(this, R.layout.layout_text_color, listitems)
         listKml.adapter = adapter
 
         listKml.choiceMode = ListView.CHOICE_MODE_SINGLE
@@ -128,6 +128,9 @@ class DemosActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 println(setIpToConn.text.toString())
                 lgDemos = LgDemos("lg","lqgalaxy",setIpToConn.text.toString(),22)
                 lgDemos!!.connectD()
+            }
+            if (lgDemos?.isLgConnected == true){
+                connect.setBackgroundColor(Color.GREEN)
             }
         }
 
